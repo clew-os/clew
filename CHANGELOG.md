@@ -11,6 +11,9 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- `scripts/make-release.sh` no longer drops the last line of the oldest CHANGELOG section from the release notes.
+
 ## [0.9.0] - 2026-11-22
 
 First tagged release: feature complete for the contest scope.

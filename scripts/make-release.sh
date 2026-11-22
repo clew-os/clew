@@ -17,7 +17,11 @@ git archive --format=tar.gz --prefix="$name/" -o "dist/$name.tar.gz" "$tag"
 cp docs/license-declaration.csv "dist/$name-license-declaration.csv"
 echo "Built dist/$name.tar.gz ($(du -h "dist/$name.tar.gz" | cut -f1))"
 cat "dist/$name.tar.gz.sha256"
+# The CHANGELOG section of a version: lines after its "## [x.y.z]" heading up to the
+# next "## [" heading or the end of the file (the oldest section has no next heading).
+release_notes() { awk -v h="## [$1]" '/^## \[/ { p = (index($0, h) == 1); next } p' CHANGELOG.md; }
+
 if [[ "${2:-}" == "--publish" ]]; then
   gh release create "$tag" "dist/$name.tar.gz" "dist/$name.tar.gz.sha256" "dist/$name-license-declaration.csv" \
-    --title "Clew $tag" --notes-file <(sed -n "/^## \[${tag#v}\]/,/^## \[/p" CHANGELOG.md | sed '$d')
+    --title "Clew $tag" --notes-file <(release_notes "${tag#v}")
 fi
