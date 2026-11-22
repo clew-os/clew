@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Domain enumerations. Stored as text with CHECK constraints (no PG enum types,
 so adding a value is a one-line migration)."""

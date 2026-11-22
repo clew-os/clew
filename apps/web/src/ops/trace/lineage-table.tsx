@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Lineage, LineageNode } from "@metrace/api-client";
+import type { Lineage, LineageNode } from "@clew/api-client";
 import { Badge } from "../../components/ui-primitives";
 import { BATCH_STATUS_LABELS_VI, NODE_TYPE_LABELS_VI, SHIPMENT_STATUS_LABELS_VI } from "../../lib/labels-vi";
 import { nodeKey, visualOf } from "./lineage-elements";

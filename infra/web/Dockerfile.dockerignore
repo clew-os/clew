@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 #
 # Build-context filter for infra/web/Dockerfile (context = repo root). Keeps secrets,

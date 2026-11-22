@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Turn verified token claims into a Principal (who is calling, with which roles/orgs)."""
 
@@ -8,6 +8,9 @@ from typing import Any
 INTERNAL_ROLES = frozenset({"qa", "procurement", "chef", "driver", "cskh", "director", "approver"})
 CUSTOMER_ROLE = "customer_staff"
 SENSOR_ROLE = "sensor"
+# Platform administrator of the headless core. Deliberately NOT in INTERNAL_ROLES:
+# a sysadmin sees system health, never business data (lots, incidents, customers).
+SYSADMIN_ROLE = "sysadmin"
 
 
 @dataclass(frozen=True)

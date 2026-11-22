@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Sensor ingest (machine identity, asset claim, clock skew) and cold-chain alerts.
 

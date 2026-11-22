@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Read side of an incident: complaints, locks, notices and affected shipments."""
 

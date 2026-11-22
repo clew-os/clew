@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 /** Friendly names for the generated schema plus the hand-written Poka-yoke shapes. */
 import type { components } from "./schema";

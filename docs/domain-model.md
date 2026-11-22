@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: The metrace Authors
+SPDX-FileCopyrightText: The Clew Authors
 SPDX-License-Identifier: Apache-2.0
 -->
 
@@ -101,7 +101,7 @@ delivered.
 
 ## Mapping to the DX-OS Tier 3 vocabulary
 
-| Tier 3 concept | metrace |
+| Tier 3 concept | Clew |
 |---|---|
 | Customers | `customer_org` (Keycloak organization alias) + `delivery_point` |
 | Goods | `ingredient`, `ingredient_lot`, `dish`, `cooking_batch` (central), `shipment` |

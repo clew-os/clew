@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { ClusterSuggestion, Complaint, SuspectRef } from "@metrace/api-client";
+import type { ClusterSuggestion, Complaint, SuspectRef } from "@clew/api-client";
 
 export interface SuspectCandidate {
   type: SuspectRef["type"];

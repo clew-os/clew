@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Meal-service checklist computed from data (the kitchen state machine lives in
 the API, no BPMN): menu -> received -> cooked -> samples -> Mẫu 3 -> dispatched."""

@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { WhoAmI } from "@metrace/api-client";
+import type { WhoAmI } from "@clew/api-client";
 import { type ReactNode, createContext, useContext, useMemo } from "react";
 import { businessDay, formatDateTime, formatTime } from "../lib/server-clock";
 

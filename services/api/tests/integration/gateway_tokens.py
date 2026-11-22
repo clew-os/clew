@@ -1,8 +1,8 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Obtain real tokens through the public gateway for integration tests.
 
-Uses the CI-only client `metrace-test` (direct access grants), which exists
+Uses the CI-only client `clew-test` (direct access grants), which exists
 only when kc-bootstrap ran with KC_OVERLAYS=test.
 """
 
@@ -14,7 +14,7 @@ from functools import cache
 import httpx
 
 GATEWAY = os.environ.get("GATEWAY_URL", "http://localhost:9080")
-TOKEN_URL = f"{GATEWAY}/auth/realms/metrace/protocol/openid-connect/token"
+TOKEN_URL = f"{GATEWAY}/auth/realms/clew/protocol/openid-connect/token"
 
 
 @cache
@@ -23,7 +23,7 @@ def user_token(username: str, scope: str = "openid organization") -> str:
         TOKEN_URL,
         data={
             "grant_type": "password",
-            "client_id": "metrace-test",
+            "client_id": "clew-test",
             "username": username,
             "password": os.environ["DEMO_USER_PASSWORD"],
             "scope": scope,

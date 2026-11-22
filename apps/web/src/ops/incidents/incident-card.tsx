@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Incident } from "@metrace/api-client";
+import type { Incident } from "@clew/api-client";
 import { Link } from "react-router";
 import { Badge } from "../../components/ui-primitives";
 import { useBusinessClock } from "../../layout/business-clock";

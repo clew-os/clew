@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import { NavLink, Outlet } from "react-router";
 import { useWhoAmI } from "../api/read-queries";
@@ -36,6 +36,15 @@ const PORTAL_NAV: readonly NavItem[] = [
   { to: "/portal/notices", label: "Thông báo" },
 ];
 
+const ADMIN_NAV: readonly NavItem[] = [
+  { to: "/admin", label: "Lõi hệ thống", end: true },
+  { to: "/admin/workflow", label: "Quy trình" },
+  { to: "/admin/outbox", label: "Outbox" },
+  { to: "/admin/gateway", label: "Cổng API" },
+];
+
+const NAV_BY_AREA: Readonly<Record<AppArea, readonly NavItem[]>> = { ops: OPS_NAV, portal: PORTAL_NAV, admin: ADMIN_NAV };
+
 function navLinkClass({ isActive }: { isActive: boolean }): string {
   return `flex min-h-12 items-center rounded-lg px-3 text-base font-semibold sm:px-5 sm:text-lg ${
     isActive ? "bg-blue-700 text-white" : "text-slate-800 hover:bg-slate-200"
@@ -46,13 +55,13 @@ function navLinkClass({ isActive }: { isActive: boolean }): string {
 export function AppShell({ area }: { area: AppArea }) {
   const whoami = useWhoAmI();
   const { username, roles } = currentSession();
-  const nav = (area === "ops" ? OPS_NAV : PORTAL_NAV).filter((item) => !item.needs || canDo(roles, item.needs));
+  const nav = NAV_BY_AREA[area].filter((item) => !item.needs || canDo(roles, item.needs));
 
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-10 border-b border-slate-300 bg-white shadow-sm">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-2">
-          <span className="text-2xl font-extrabold tracking-tight text-blue-800">metrace</span>
+          <span className="text-2xl font-extrabold tracking-tight text-blue-800">Clew</span>
           <nav aria-label="Màn hình chính" className="flex flex-wrap gap-1">
             {nav.map((item) => (
               <NavLink key={item.to} to={item.to} end={item.end} className={navLinkClass}>
@@ -72,7 +81,8 @@ export function AppShell({ area }: { area: AppArea }) {
             </Button>
           </div>
         </div>
-        {area === "ops" ? <ColdChainAlertBanner /> : <PortalNoticeBanner />}
+        {area === "ops" && <ColdChainAlertBanner />}
+        {area === "portal" && <PortalNoticeBanner />}
       </header>
       <main className={`mx-auto p-3 sm:p-4 ${area === "portal" ? "max-w-3xl" : "max-w-7xl"}`}>
         <QueryBoundary query={whoami}>

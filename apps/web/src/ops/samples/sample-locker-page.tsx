@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import { useBatches, useDishes, useSamples } from "../../api/read-queries";
 import { canDo } from "../../auth/roles";

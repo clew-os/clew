@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { IncidentDetail } from "@metrace/api-client";
+import type { IncidentDetail } from "@clew/api-client";
 import { Badge, Card } from "../../components/ui-primitives";
 import { useBusinessClock } from "../../layout/business-clock";
 import { SHIPMENT_STATUS_LABELS_VI, mealSlotLabel } from "../../lib/labels-vi";

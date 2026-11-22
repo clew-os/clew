@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { type ColdChainAlert, plainNumber } from "@metrace/api-client";
+import { type ColdChainAlert, plainNumber } from "@clew/api-client";
 import { useState } from "react";
 import { Link } from "react-router";
 import { useAcknowledgeAlert, useColdChainAlerts } from "../../api/coldchain-audit-api";

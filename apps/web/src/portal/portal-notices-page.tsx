@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Notice, NoticeShipment } from "@metrace/api-client";
+import type { Notice, NoticeShipment } from "@clew/api-client";
 import { useAcknowledgeNotice, usePortalNotices } from "../api/portal-api";
 import { AuditAnchor } from "../components/audit-anchor";
 import { QueryBoundary } from "../components/query-boundary";

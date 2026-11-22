@@ -1,9 +1,9 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 [project]
-name = "metrace-sensor-simulator"
-version = "0.1.0"
-description = "Simulated fridge thermometers posting readings through the metrace gateway"
+name = "clew-sensor-simulator"
+version = "0.9.0"
+description = "Simulated fridge thermometers posting readings through the clew gateway"
 license = "Apache-2.0"
 requires-python = ">=3.12"
 dependencies = ["httpx>=0.28"]

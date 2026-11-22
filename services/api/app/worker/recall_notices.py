@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Recall notices: one per (incident, delivery point), idempotent (upsert).
 
@@ -26,7 +26,7 @@ from app.services import lineage_query
 from app.services.lineage_query import WRITER_WALK, NodeRef, any_of
 from app.services.lock_service import recall_since
 
-log = logging.getLogger("metrace.worker.notices")
+log = logging.getLogger("clew.worker.notices")
 
 ACTION = {"held": "hold", "planned": "hold", "ready": "hold", "dispatched": "recall", "delivered": "recall"}
 

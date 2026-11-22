@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Supplier } from "@metrace/api-client";
+import type { Supplier } from "@clew/api-client";
 import { Badge } from "../../components/ui-primitives";
 import { summarizeSupplierCert } from "../../lib/supplier-cert-state";
 

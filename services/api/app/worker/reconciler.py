@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Every 30 s, run the registered reconcilers (DB <-> Flowable drift repair).
 
@@ -12,7 +12,7 @@ import threading
 from app.worker import heartbeat
 from app.worker.handler_registry import RECONCILERS
 
-log = logging.getLogger("metrace.worker.reconciler")
+log = logging.getLogger("clew.worker.reconciler")
 INTERVAL_SECONDS = 30.0
 
 

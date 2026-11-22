@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { type Batch, plainNumber } from "@metrace/api-client";
+import { type Batch, plainNumber } from "@clew/api-client";
 import { useState } from "react";
 import { useFinishBatch } from "../../api/mutations";
 import { useThresholds } from "../../api/read-queries";

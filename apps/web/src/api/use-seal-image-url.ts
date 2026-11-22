@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { fetchBlob } from "@metrace/api-client";
+import { fetchBlob } from "@clew/api-client";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { getAccessToken } from "../auth/keycloak-session";

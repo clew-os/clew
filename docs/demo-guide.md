@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: The metrace Authors
+SPDX-FileCopyrightText: The Clew Authors
 SPDX-License-Identifier: Apache-2.0
 -->
 
@@ -44,13 +44,19 @@ phone for `/portal`. For a short escalation timer start the stack with
 
 - Switch the portal to `nha-may-x`: same code, a factory with two shifts and a
   12-hour answer deadline (profile data, not code branches).
-- CLI: `metrace trace lot LOT-…-XUONG-LON -d forward`, `metrace shipments list
-  --status held`, `metrace drill run lot LOT-…` (dry run, coverage %).
+- CLI: `clew trace lot LOT-…-XUONG-LON -d forward`, `clew shipments list
+  --status held`, `clew drill run lot LOT-…` (dry run, coverage %).
 - Cold chain: run the simulator in `breach` mode for the sample fridge → an
   alert opens, lists the retained samples inside, and escalates to the director
   after `COLDCHAIN_CHECK_SLA` if nobody acknowledges it.
 - Tamper evidence: copy the anchor printed on a recall notice or the PDF footer,
   verify it; change one audit row in the database → verification names the seq.
+- Headless core admin: as `sysadmin-khoa` open `/admin` → every core service
+  with its health, the running recall process and its open tasks, outbox and
+  gateway routes; the same login opens the Keycloak admin console on `:9081`
+  (users, customer organizations). The sysadmin cannot open any business screen.
+  Optional: `docker compose stop flowable` → its card turns red while the
+  kitchen keeps working; `docker compose start flowable`.
 
 ## 4. Close (≈1 min)
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 #
 # Before going on stage: keep the laptop awake, check clocks and health,
@@ -24,6 +24,6 @@ unhealthy=$(docker compose ps --format '{{.Service}} {{.Health}}' | awk '$2 != "
 scripts/demo-reset.sh baseline,outbreak | tail -1
 
 curl -fsS -o /dev/null http://localhost:9080/ && ok "web app answers"
-curl -fsS -o /dev/null http://localhost:9080/auth/realms/metrace/.well-known/openid-configuration && ok "login answers"
+curl -fsS -o /dev/null http://localhost:9080/auth/realms/clew/.well-known/openid-configuration && ok "login answers"
 if curl -fsS -m 2 -o /dev/null http://127.0.0.1:11434/api/tags; then ok "local LLM up"; else warn "no local LLM: drafts use the template"; fi
 echo "Preflight done. Open each persona's browser profile and log in before starting."

@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { ShipmentItem } from "@metrace/api-client";
+import type { ShipmentItem } from "@clew/api-client";
 import { useState } from "react";
 import { useRecordPortionCheck } from "../../api/mutations";
 import { Button, Field, inputClass } from "../../components/ui-primitives";

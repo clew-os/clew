@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Lineage } from "@metrace/api-client";
+import type { Lineage } from "@clew/api-client";
 import cytoscape from "cytoscape";
 import { useEffect, useMemo, useRef } from "react";
 import { Button } from "../../components/ui-primitives";

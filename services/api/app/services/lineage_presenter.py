@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Decorate a LineageResult for screens and the CLI: human labels, lock state,
 shipment/batch status and portions that reached each delivery point."""

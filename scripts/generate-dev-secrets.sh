@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 #
 # Print a fresh .env with random secrets. `make init` redirects this to .env
@@ -23,10 +23,10 @@ cat <<EOF
 POSTGRES_PASSWORD=$(rand)
 KC_DB_PASSWORD=$(rand)
 FLOWABLE_DB_PASSWORD=$(rand)
-METRACE_MIGRATOR_PASSWORD=$(rand)
-METRACE_APP_PASSWORD=$(rand)
+CLEW_MIGRATOR_PASSWORD=$(rand)
+CLEW_APP_PASSWORD=$(rand)
 KC_ADMIN_PASSWORD=$(rand)
-METRACE_API_CLIENT_SECRET=$(rand)
+CLEW_API_CLIENT_SECRET=$(rand)
 SENSOR_GATEWAY_CLIENT_SECRET=$(rand)
 FLOWABLE_ADMIN_PASSWORD=$(rand)
 S3_ACCESS_KEY=$(rand 20)

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """GET /api/v1/lineage/{type}/{id}: forward, backward or both. Internal staff only."""
 

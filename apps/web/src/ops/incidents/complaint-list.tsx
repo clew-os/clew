@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { ComplaintStatus, DeliveryPoint } from "@metrace/api-client";
+import type { ComplaintStatus, DeliveryPoint } from "@clew/api-client";
 import { useState } from "react";
 import { useComplaints } from "../../api/incident-queries";
 import { QueryBoundary } from "../../components/query-boundary";

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """sensors, cold-chain alerts, incident report draft columns
 
@@ -17,7 +17,7 @@ depends_on = None
 
 def upgrade() -> None:
     op.execute("CREATE SEQUENCE incident_code_seq")
-    op.execute("GRANT USAGE, SELECT ON SEQUENCE incident_code_seq TO metrace_app")
+    op.execute("GRANT USAGE, SELECT ON SEQUENCE incident_code_seq TO clew_app")
     # Continue after incidents created before the sequence existed (INC-001 ...).
     op.execute(
         "SELECT setval('incident_code_seq', COALESCE((SELECT max(substring(code from 'INC-([0-9]+)')::int)"

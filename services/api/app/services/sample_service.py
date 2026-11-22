@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Retained samples: store with a QR seal (P4 minimum), list for the locker
 screen, discard only after the retention window and never during an incident."""

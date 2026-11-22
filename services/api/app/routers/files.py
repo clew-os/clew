@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """File upload/download. Internal uploads belong to the company; portal uploads
 belong to the caller's customer organization. Another org's file is a 404."""

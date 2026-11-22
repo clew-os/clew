@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { ApiError, messageForCode } from "@metrace/api-client";
+import { ApiError, messageForCode } from "@clew/api-client";
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { Button } from "./ui-primitives";

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Mẫu 2 (kiểm tra khi chế biến) for one cooking batch, from recorded data only."""
 

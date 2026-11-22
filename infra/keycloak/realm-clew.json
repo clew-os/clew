@@ -1,6 +1,6 @@
 {
-  "realm": "metrace",
-  "displayName": "metrace",
+  "realm": "clew",
+  "displayName": "Clew",
   "enabled": true,
   "sslRequired": "external",
   "organizationsEnabled": true,
@@ -48,24 +48,28 @@
       {
         "name": "sensor",
         "description": "Machine identity for sensor readings"
+      },
+      {
+        "name": "sysadmin",
+        "description": "Platform administrator (tier 1): core admin page and the Keycloak admin console of this realm; no business data"
       }
     ]
   },
   "clients": [
     {
-      "clientId": "metrace-api",
-      "name": "metrace API (audience)",
+      "clientId": "clew-api",
+      "name": "clew API (audience)",
       "enabled": true,
       "publicClient": false,
-      "secret": "${METRACE_API_CLIENT_SECRET}",
+      "secret": "${CLEW_API_CLIENT_SECRET}",
       "standardFlowEnabled": false,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": false,
       "serviceAccountsEnabled": false
     },
     {
-      "clientId": "metrace-web",
-      "name": "metrace web app",
+      "clientId": "clew-web",
+      "name": "clew web app",
       "enabled": true,
       "publicClient": true,
       "standardFlowEnabled": true,
@@ -84,21 +88,22 @@
       },
       "protocolMappers": [
         {
-          "name": "audience-metrace-api",
+          "name": "audience-clew-api",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-audience-mapper",
           "config": {
-            "included.client.audience": "metrace-api",
+            "included.client.audience": "clew-api",
             "access.token.claim": "true",
             "id.token.claim": "false",
             "introspection.token.claim": "true"
           }
         }
-      ]
+      ],
+      "fullScopeAllowed": false
     },
     {
-      "clientId": "metrace-cli",
-      "name": "metrace CLI (device flow)",
+      "clientId": "clew-cli",
+      "name": "clew CLI (device flow)",
       "enabled": true,
       "publicClient": true,
       "standardFlowEnabled": false,
@@ -109,17 +114,18 @@
       },
       "protocolMappers": [
         {
-          "name": "audience-metrace-api",
+          "name": "audience-clew-api",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-audience-mapper",
           "config": {
-            "included.client.audience": "metrace-api",
+            "included.client.audience": "clew-api",
             "access.token.claim": "true",
             "id.token.claim": "false",
             "introspection.token.claim": "true"
           }
         }
-      ]
+      ],
+      "fullScopeAllowed": false
     },
     {
       "clientId": "sensor-gateway",
@@ -133,11 +139,11 @@
       "serviceAccountsEnabled": true,
       "protocolMappers": [
         {
-          "name": "audience-metrace-api",
+          "name": "audience-clew-api",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-audience-mapper",
           "config": {
-            "included.client.audience": "metrace-api",
+            "included.client.audience": "clew-api",
             "access.token.claim": "true",
             "id.token.claim": "false",
             "introspection.token.claim": "true"
@@ -170,7 +176,7 @@
     },
     {
       "username": "qa-lan",
-      "email": "qa-lan@metrace.test",
+      "email": "qa-lan@clew.test",
       "emailVerified": true,
       "firstName": "Lan",
       "lastName": "QA",
@@ -188,7 +194,7 @@
     },
     {
       "username": "approver-ha",
-      "email": "approver-ha@metrace.test",
+      "email": "approver-ha@clew.test",
       "emailVerified": true,
       "firstName": "Ha",
       "lastName": "Approver",
@@ -207,7 +213,7 @@
     },
     {
       "username": "procurement-mai",
-      "email": "procurement-mai@metrace.test",
+      "email": "procurement-mai@clew.test",
       "emailVerified": true,
       "firstName": "Mai",
       "lastName": "Procurement",
@@ -225,7 +231,7 @@
     },
     {
       "username": "chef-hung",
-      "email": "chef-hung@metrace.test",
+      "email": "chef-hung@clew.test",
       "emailVerified": true,
       "firstName": "Hung",
       "lastName": "Chef",
@@ -243,7 +249,7 @@
     },
     {
       "username": "driver-tuan",
-      "email": "driver-tuan@metrace.test",
+      "email": "driver-tuan@clew.test",
       "emailVerified": true,
       "firstName": "Tuan",
       "lastName": "Driver",
@@ -261,7 +267,7 @@
     },
     {
       "username": "cskh-thu",
-      "email": "cskh-thu@metrace.test",
+      "email": "cskh-thu@clew.test",
       "emailVerified": true,
       "firstName": "Thu",
       "lastName": "Customer Care",
@@ -279,7 +285,7 @@
     },
     {
       "username": "director-nam",
-      "email": "director-nam@metrace.test",
+      "email": "director-nam@clew.test",
       "emailVerified": true,
       "firstName": "Nam",
       "lastName": "Director",
@@ -297,7 +303,7 @@
     },
     {
       "username": "truong-a",
-      "email": "truong-a@metrace.test",
+      "email": "truong-a@clew.test",
       "emailVerified": true,
       "firstName": "Truong A",
       "lastName": "Staff",
@@ -315,7 +321,7 @@
     },
     {
       "username": "truong-b",
-      "email": "truong-b@metrace.test",
+      "email": "truong-b@clew.test",
       "emailVerified": true,
       "firstName": "Truong B",
       "lastName": "Staff",
@@ -333,7 +339,7 @@
     },
     {
       "username": "truong-c",
-      "email": "truong-c@metrace.test",
+      "email": "truong-c@clew.test",
       "emailVerified": true,
       "firstName": "Truong C",
       "lastName": "Staff",
@@ -351,7 +357,7 @@
     },
     {
       "username": "nha-may-x",
-      "email": "nha-may-x@metrace.test",
+      "email": "nha-may-x@clew.test",
       "emailVerified": true,
       "firstName": "Nha may X",
       "lastName": "Staff",
@@ -359,6 +365,37 @@
       "realmRoles": [
         "customer_staff"
       ],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "${DEMO_USER_PASSWORD}",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "sysadmin-khoa",
+      "email": "sysadmin-khoa@clew.test",
+      "emailVerified": true,
+      "firstName": "Khoa",
+      "lastName": "Sysadmin",
+      "enabled": true,
+      "realmRoles": [
+        "sysadmin"
+      ],
+      "clientRoles": {
+        "realm-management": [
+          "view-realm",
+          "manage-realm",
+          "view-users",
+          "manage-users",
+          "query-users",
+          "query-groups",
+          "view-clients",
+          "query-clients",
+          "view-events"
+        ]
+      },
       "credentials": [
         {
           "type": "password",
@@ -375,7 +412,7 @@
       "enabled": true,
       "domains": [
         {
-          "name": "truong-a.metrace.test",
+          "name": "truong-a.clew.test",
           "verified": false
         }
       ],
@@ -392,7 +429,7 @@
       "enabled": true,
       "domains": [
         {
-          "name": "truong-b.metrace.test",
+          "name": "truong-b.clew.test",
           "verified": false
         }
       ],
@@ -409,7 +446,7 @@
       "enabled": true,
       "domains": [
         {
-          "name": "truong-c.metrace.test",
+          "name": "truong-c.clew.test",
           "verified": false
         }
       ],
@@ -426,7 +463,7 @@
       "enabled": true,
       "domains": [
         {
-          "name": "nha-may-x.metrace.test",
+          "name": "nha-may-x.clew.test",
           "verified": false
         }
       ],
@@ -437,5 +474,37 @@
         }
       ]
     }
-  ]
+  ],
+  "scopeMappings": [
+    {
+      "client": "clew-web",
+      "roles": [
+        "qa",
+        "procurement",
+        "chef",
+        "driver",
+        "cskh",
+        "director",
+        "approver",
+        "customer_staff",
+        "sysadmin"
+      ]
+    },
+    {
+      "client": "clew-cli",
+      "roles": [
+        "qa",
+        "procurement",
+        "chef",
+        "driver",
+        "cskh",
+        "director",
+        "approver"
+      ]
+    }
+  ],
+  "eventsEnabled": true,
+  "eventsExpiration": 2592000,
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": false
 }

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """lineage view: every traceability edge as (from_type, from_id) -> (to_type, to_id)
 
@@ -32,7 +32,7 @@ def upgrade() -> None:
         """
     )
     # The default privileges cover tables; views need an explicit grant.
-    op.execute("GRANT SELECT ON lineage_edge TO metrace_app")
+    op.execute("GRANT SELECT ON lineage_edge TO clew_app")
 
 
 def downgrade() -> None:

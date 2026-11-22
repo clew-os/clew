@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Shared PDF layout for the paper forms: Unicode font (Noto Sans, OFL-1.1) for
 Vietnamese, a title block, simple tables and a footer that prints the audit
@@ -60,7 +60,7 @@ def render(title: str, subtitle: str, flowables: list, audit_head: tuple[int, st
     def footer(canvas, doc) -> None:
         canvas.saveState()
         canvas.setFont("NotoSans", 7)
-        canvas.drawString(15 * mm, 10 * mm, f"metrace · {anchor}")
+        canvas.drawString(15 * mm, 10 * mm, f"Clew · {anchor}")
         canvas.drawRightString(195 * mm, 10 * mm, f"Trang {doc.page}")
         canvas.restoreState()
 
@@ -72,7 +72,7 @@ def render(title: str, subtitle: str, flowables: list, audit_head: tuple[int, st
         topMargin=15 * mm,
         bottomMargin=18 * mm,
         title=title,
-        author="metrace",
+        author="Clew",
     )
     story = [
         Paragraph(title, st["title"]),

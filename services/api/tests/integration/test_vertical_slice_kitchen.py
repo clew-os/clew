@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Kitchen vertical slice through the gateway, every Poka-yoke stop on the way:
 receive -> cook -> sample -> Mẫu 3 -> dispatch (needs the seeded master data)."""

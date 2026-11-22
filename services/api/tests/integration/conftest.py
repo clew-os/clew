@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Integration fixtures: real PostgreSQL (dev port 127.0.0.1:5432), never mocks."""
 
@@ -17,14 +17,14 @@ def _url(role: str, password_env: str) -> URL:
         password=os.environ[password_env],
         host=os.environ.get("PGHOST_FOR_TESTS", "localhost"),
         port=5432,
-        database="metrace",
+        database="clew",
     )
 
 
 @pytest.fixture(scope="session")
 def app_engine():
     """Runtime role, same privileges as the API."""
-    engine = create_engine(_url("metrace_app", "METRACE_APP_PASSWORD"), connect_args={"options": "-c timezone=UTC"})
+    engine = create_engine(_url("clew_app", "CLEW_APP_PASSWORD"), connect_args={"options": "-c timezone=UTC"})
     yield engine
     engine.dispose()
 
@@ -32,9 +32,7 @@ def app_engine():
 @pytest.fixture(scope="session")
 def owner_engine():
     """Schema owner, used only to clean up rows the app role may not delete."""
-    engine = create_engine(
-        _url("metrace_migrator", "METRACE_MIGRATOR_PASSWORD"), connect_args={"options": "-c timezone=UTC"}
-    )
+    engine = create_engine(_url("clew_migrator", "CLEW_MIGRATOR_PASSWORD"), connect_args={"options": "-c timezone=UTC"})
     yield engine
     engine.dispose()
 

@@ -1,10 +1,12 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """claim (short tx) -> handle (no tx, may call HTTP) -> mark (short tx).
 
 Infrastructure errors retry forever with exponential backoff (max 60 s).
 Logic errors retry 5 times, then the row gets `failed_at` (visible in the UI).
 A crashed worker's claim simply expires after 60 s and the row is retried.
+Mark statements are fenced on `attempts` and `processed_at IS NULL`: a worker whose claim expired
+(or whose row an admin reset) matches no row and cannot overwrite the newer state.
 """
 
 import logging
@@ -17,7 +19,7 @@ from sqlalchemy.orm import Session
 from app.worker import heartbeat
 from app.worker.handler_registry import Handler, InfraError, OutboxMessage
 
-log = logging.getLogger("metrace.worker")
+log = logging.getLogger("clew.worker")
 
 MAX_LOGIC_ATTEMPTS = 5
 CLAIM_SECONDS = 60
@@ -39,7 +41,10 @@ CLAIM_SQL = text(
     """
 )
 MARK_DONE_SQL = text(
-    "UPDATE outbox_event SET processed_at = now(), claimed_until = NULL, last_error = NULL WHERE id = :id"
+    """
+    UPDATE outbox_event SET processed_at = now(), claimed_until = NULL, last_error = NULL
+     WHERE id = :id AND attempts = :attempts AND processed_at IS NULL
+    """
 )
 MARK_RETRY_SQL = text(
     """
@@ -47,7 +52,7 @@ MARK_RETRY_SQL = text(
        SET claimed_until = NULL, last_error = :error,
            next_attempt_at = now() + make_interval(secs => :delay),
            failed_at = CASE WHEN :fail THEN now() ELSE NULL END
-     WHERE id = :id
+     WHERE id = :id AND attempts = :attempts AND processed_at IS NULL
     """
 )
 
@@ -72,15 +77,31 @@ def process_message(session: Session, message: OutboxMessage, handlers: Mapping[
         handler(message)
     except InfraError as exc:
         delay = min(2**message.attempts, 60)
-        _mark(session, MARK_RETRY_SQL, id=message.id, error=str(exc)[:2000], delay=delay, fail=False)
+        _mark(
+            session,
+            MARK_RETRY_SQL,
+            id=message.id,
+            attempts=message.attempts,
+            error=str(exc)[:2000],
+            delay=delay,
+            fail=False,
+        )
         log.warning("outbox %s %s infra error, retry in %ss: %s", message.id, message.event_type, delay, exc)
         return "retry"
     except Exception as exc:
         fail = message.attempts >= MAX_LOGIC_ATTEMPTS
-        _mark(session, MARK_RETRY_SQL, id=message.id, error=repr(exc)[:2000], delay=5, fail=fail)
+        _mark(
+            session,
+            MARK_RETRY_SQL,
+            id=message.id,
+            attempts=message.attempts,
+            error=repr(exc)[:2000],
+            delay=5,
+            fail=fail,
+        )
         log.exception("outbox %s %s failed (attempt %s)", message.id, message.event_type, message.attempts)
         return "failed" if fail else "retry"
-    _mark(session, MARK_DONE_SQL, id=message.id)
+    _mark(session, MARK_DONE_SQL, id=message.id, attempts=message.attempts)
     return "done"
 
 

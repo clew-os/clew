@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { MealSlot } from "@metrace/api-client";
+import type { MealSlot } from "@clew/api-client";
 import { MEAL_SLOTS, MEAL_SLOT_LABELS_VI } from "../lib/labels-vi";
 
 /** Big segmented control for choosing the meal of the day; `counts` adds a number per slot. */

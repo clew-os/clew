@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """P3: a truck leaves only when every batch on it has Mẫu 1 (accepted receiving
 with documents for every lot), Mẫu 2 (finished batch), Mẫu 3 (portion check

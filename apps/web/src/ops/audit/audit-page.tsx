@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { VerifyResult } from "@metrace/api-client";
+import type { VerifyResult } from "@clew/api-client";
 import { useState } from "react";
 import { useAuditHead, useVerifyAudit } from "../../api/coldchain-audit-api";
 import { canDo } from "../../auth/roles";

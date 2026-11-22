@@ -1,9 +1,9 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
-"""OAuth 2.0 device authorization grant against Keycloak (client `metrace-cli`).
+"""OAuth 2.0 device authorization grant against Keycloak (client `clew-cli`).
 
 No password ever touches the CLI: the user approves the login in a browser.
-Tokens are cached in ~/.config/metrace/token.json with file mode 600.
+Tokens are cached in ~/.config/clew/token.json with file mode 600.
 """
 
 import json
@@ -14,21 +14,21 @@ from pathlib import Path
 
 import httpx
 
-CLIENT_ID = "metrace-cli"
+CLIENT_ID = "clew-cli"
 SCOPE = "openid organization"
 
 
 def base_url() -> str:
-    return os.environ.get("METRACE_URL", "http://localhost:9080").rstrip("/")
+    return os.environ.get("CLEW_URL", "http://localhost:9080").rstrip("/")
 
 
 def issuer() -> str:
-    return f"{base_url()}/auth/realms/{os.environ.get('METRACE_REALM', 'metrace')}"
+    return f"{base_url()}/auth/realms/{os.environ.get('CLEW_REALM', 'clew')}"
 
 
 def token_path() -> Path:
     root = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
-    return root / "metrace" / "token.json"
+    return root / "clew" / "token.json"
 
 
 def save_tokens(tokens: dict) -> None:
@@ -75,12 +75,12 @@ def device_login(show: Callable[[str, str], None], http: httpx.Client | None = N
 
 
 def access_token(http: httpx.Client | None = None) -> str:
-    """Token from METRACE_TOKEN (tests/CI) or the cache, refreshed when about to expire."""
-    if env := os.environ.get("METRACE_TOKEN"):
+    """Token from CLEW_TOKEN (tests/CI) or the cache, refreshed when about to expire."""
+    if env := os.environ.get("CLEW_TOKEN"):
         return env
     path = token_path()
     if not path.exists():
-        raise RuntimeError("not logged in: run `metrace login`")
+        raise RuntimeError("not logged in: run `clew login`")
     tokens = json.loads(path.read_text())
     if time.time() < tokens["obtained_at"] + tokens.get("expires_in", 0) - 30:
         return tokens["access_token"]
@@ -91,6 +91,6 @@ def access_token(http: httpx.Client | None = None) -> str:
     )
     if res.status_code != 200:
         clear_tokens()
-        raise RuntimeError("session expired: run `metrace login`")
+        raise RuntimeError("session expired: run `clew login`")
     save_tokens(res.json())
     return res.json()["access_token"]

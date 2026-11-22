@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Batch, Dish } from "@metrace/api-client";
+import type { Batch, Dish } from "@clew/api-client";
 import { useState } from "react";
 import { useAddBatchInput } from "../../api/mutations";
 import { useBatchInputs, useLots } from "../../api/read-queries";

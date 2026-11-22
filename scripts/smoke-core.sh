@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 #
 # Smoke test of a running stack (after `docker compose up -d --wait`).
@@ -23,7 +23,7 @@ for job in migrate kc-bootstrap; do
 done
 
 echo "gateway:"
-check "discovery" 200 "$(code "$GW/auth/realms/metrace/.well-known/openid-configuration")"
+check "discovery" 200 "$(code "$GW/auth/realms/clew/.well-known/openid-configuration")"
 check "admin console blocked" 404 "$(code "$GW/auth/admin/")"
 check "master realm blocked" 404 "$(code "$GW/auth/realms/master/.well-known/openid-configuration")"
 check "web app" 200 "$(code "$GW/")"
@@ -31,8 +31,8 @@ check "web app deep link" 200 "$(code "$GW/ops/anything")"
 check "api without token" 401 "$(code "$GW/api/v1/whoami")"
 
 echo "identity:"
-token=$(curl -s -X POST "$GW/auth/realms/metrace/protocol/openid-connect/token" \
-  -d grant_type=password -d client_id=metrace-test -d username=truong-a \
+token=$(curl -s -X POST "$GW/auth/realms/clew/protocol/openid-connect/token" \
+  -d grant_type=password -d client_id=clew-test -d username=truong-a \
   --data-urlencode "password=$DEMO_USER_PASSWORD" -d "scope=openid organization" | jq -r '.access_token // empty')
 check "token for truong-a" "yes" "$([[ -n "$token" ]] && echo yes || echo no)"
 whoami=$(curl -s -H "Authorization: Bearer $token" "$GW/api/v1/whoami")

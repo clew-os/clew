@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import { Link } from "react-router";
 import { usePortalNotices } from "../api/portal-api";

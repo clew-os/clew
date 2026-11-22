@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Sample } from "@metrace/api-client";
+import type { Sample } from "@clew/api-client";
 import { useState } from "react";
 import { useDiscardSample } from "../../api/mutations";
 import { useSealImageUrl } from "../../api/use-seal-image-url";

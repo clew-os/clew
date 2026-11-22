@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Build one service day of kitchen records: receiving -> lots -> batches (broth
 first) -> samples -> shipments + Mẫu 3. Times come from a `clock(minutes)` that the

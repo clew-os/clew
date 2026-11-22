@@ -1,11 +1,11 @@
 <!--
-SPDX-FileCopyrightText: The metrace Authors
+SPDX-FileCopyrightText: The Clew Authors
 SPDX-License-Identifier: Apache-2.0
 -->
 
 # License policy
 
-metrace is Apache-2.0. Everything it contains or links must be under an
+Clew is Apache-2.0. Everything it contains or links must be under an
 [OSI-approved](https://opensource.org/licenses) license.
 
 ## Scope
@@ -14,7 +14,7 @@ Following the organisers' answer of 9 October 2026, licence compliance covers
 **the code in this repository and the libraries it uses** (Python and npm
 packages, fonts and other files committed here).
 
-Standalone software that metrace only talks to over the network as a service
+Standalone software that Clew only talks to over the network as a service
 (Keycloak, Apache APISIX, PostgreSQL, SeaweedFS, Flowable, nginx, the optional
 Ollama runtime and model weights) is **not** part of the project's licence
 scope. It is still listed, one line each, in the declaration for transparency,
@@ -53,4 +53,4 @@ in builds (for example `caniuse-lite`, kept out of the web build on purpose:
   builds per OS/CPU are listed individually.
 - New dependencies are mentioned in the pull request description.
 - Dev tools that are run but never shipped (for example `reuse`, GPL-3.0) are
-  not dependencies of metrace.
+  not dependencies of Clew.

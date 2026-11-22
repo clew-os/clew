@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Suppliers, their food-safety certificates, goods receipt (Mẫu 1) and ingredient lots."""
 

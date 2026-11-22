@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { type Schemas, unwrap, uploadCompanyFile } from "@metrace/api-client";
+import { type Schemas, unwrap, uploadCompanyFile } from "@clew/api-client";
 import { api } from "./api-client-instance";
 import { useWrite } from "./use-write";
 

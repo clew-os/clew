@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { ApiError, type PokaYokeFinding, describeFindingVi, messageForCode } from "@metrace/api-client";
+import { ApiError, type PokaYokeFinding, describeFindingVi, messageForCode } from "@clew/api-client";
 import { Badge } from "./ui-primitives";
 
 interface ViolationBannerProps {

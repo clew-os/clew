@@ -1,6 +1,6 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
-"""`metrace` command line: login (device flow), whoami, trace, shipments, incidents.
+"""`clew` command line: login (device flow), whoami, trace, shipments, incidents.
 
 Every command calls the same /api/v1 as the web app, through the gateway.
 """
@@ -9,11 +9,11 @@ from enum import StrEnum
 
 import typer
 
-from metrace_cli import auth_device_flow as auth
-from metrace_cli.api_client import ApiError, get, post, require_internal
-from metrace_cli.output_format import emit_json, table
+from clew_cli import auth_device_flow as auth
+from clew_cli.api_client import ApiError, get, post, require_internal
+from clew_cli.output_format import emit_json, table
 
-app = typer.Typer(no_args_is_help=True, help="metrace: trace cooking batches, lots and shipments.")
+app = typer.Typer(no_args_is_help=True, help="clew: trace cooking batches, lots and shipments.")
 shipments = typer.Typer(no_args_is_help=True, help="Shipments of cooked food.")
 incidents = typer.Typer(no_args_is_help=True, help="Food-safety incidents.")
 drill = typer.Typer(no_args_is_help=True, help="Recall drills (dry run: nothing is locked).")

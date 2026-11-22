@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Complaints (internal channel; the portal channel reuses `create_complaint`) and
 #3 cluster suggestions: plain SQL group-by, a SUGGESTION that QA confirms."""

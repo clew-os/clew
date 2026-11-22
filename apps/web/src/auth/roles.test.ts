@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import { describe, expect, it } from "vitest";
 import { areaForRoles, canDo, homePathForRoles, roleLabelsVi } from "./roles";
@@ -8,6 +8,14 @@ describe("role routing", () => {
     expect(areaForRoles(["offline_access", "qa"])).toBe("ops");
     expect(areaForRoles(["customer_staff"])).toBe("portal");
     expect(areaForRoles(["offline_access"])).toBeNull();
+  });
+
+  it("sends the platform admin to /admin, and ops/portal roles win when combined", () => {
+    expect(areaForRoles(["sysadmin"])).toBe("admin");
+    expect(homePathForRoles(["default-roles-clew", "sysadmin"])).toBe("/admin");
+    expect(areaForRoles(["sysadmin", "qa"])).toBe("ops");
+    expect(areaForRoles(["sysadmin", "customer_staff"])).toBe("portal");
+    expect(roleLabelsVi(["sysadmin"])).toEqual(["Quản trị hệ thống"]);
   });
 
   it("picks a home screen per role", () => {
@@ -41,6 +49,6 @@ describe("role routing", () => {
   });
 
   it("hides Keycloak default roles in the header", () => {
-    expect(roleLabelsVi(["default-roles-metrace", "chef", "uma_authorization"])).toEqual(["Bếp trưởng"]);
+    expect(roleLabelsVi(["default-roles-clew", "chef", "uma_authorization"])).toEqual(["Bếp trưởng"]);
   });
 });

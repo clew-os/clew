@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 export { ApiError, NETWORK_ERROR_CODE, toApiError, toFindings } from "./api-error";
 export type { ErrorEnvelope } from "./api-error";

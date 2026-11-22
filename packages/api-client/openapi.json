@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "metrace API",
-    "version": "0.0.0"
+    "title": "Clew API",
+    "version": "0.9.0"
   },
   "paths": {
     "/healthz": {
@@ -2763,6 +2763,199 @@
           }
         ]
       }
+    },
+    "/api/v1/admin/core-status": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Core Status",
+        "operationId": "core_status_api_v1_admin_core_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CoreComponentOut"
+                  },
+                  "type": "array",
+                  "title": "Response Core Status Api V1 Admin Core Status Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/workflow": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Workflow",
+        "operationId": "workflow_api_v1_admin_workflow_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowOverviewOut"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/workflow/deadletter-jobs/{job_id}/retry": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Retry Job",
+        "operationId": "retry_job_api_v1_admin_workflow_deadletter_jobs__job_id__retry_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9-]+$",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/outbox": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Outbox",
+        "operationId": "outbox_api_v1_admin_outbox_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutboxOverviewOut"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/outbox/{event_id}/retry": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Retry Event",
+        "operationId": "retry_event_api_v1_admin_outbox__event_id__retry_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 9223372036854775807,
+              "minimum": 1,
+              "title": "Event Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/gateway": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Gateway",
+        "operationId": "gateway_api_v1_admin_gateway_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayOverviewOut"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -3495,6 +3688,142 @@
         ],
         "title": "ConfirmSuspectsIn"
       },
+      "CoreComponentOut": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "service_kind": {
+            "type": "string",
+            "enum": [
+              "sso",
+              "gateway",
+              "structured_data",
+              "unstructured_data",
+              "workflow",
+              "platform"
+            ],
+            "title": "Service Kind"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "up",
+              "degraded",
+              "down"
+            ],
+            "title": "Status"
+          },
+          "latency_ms": {
+            "type": "integer",
+            "title": "Latency Ms"
+          },
+          "facts": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Facts"
+          },
+          "console_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Console Url"
+          },
+          "secondary_console_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Secondary Console Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "label",
+          "service_kind",
+          "status",
+          "latency_ms",
+          "facts",
+          "console_url"
+        ],
+        "title": "CoreComponentOut"
+      },
+      "DeadLetterJobOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "process_instance_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Process Instance Id"
+          },
+          "exception_message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exception Message"
+          },
+          "retries": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retries"
+          },
+          "created": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "process_instance_id",
+          "exception_message",
+          "retries",
+          "created"
+        ],
+        "title": "DeadLetterJobOut"
+      },
       "DeliveryItem": {
         "properties": {
           "dish": {
@@ -3692,6 +4021,53 @@
         ],
         "title": "DrillIn"
       },
+      "FailedOutboxEventOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "event_type": {
+            "type": "string",
+            "title": "Event Type"
+          },
+          "attempts": {
+            "type": "integer",
+            "title": "Attempts"
+          },
+          "failed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failed At"
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "event_type",
+          "attempts",
+          "failed_at",
+          "last_error"
+        ],
+        "title": "FailedOutboxEventOut"
+      },
       "FileOut": {
         "properties": {
           "id": {
@@ -3825,6 +4201,97 @@
         ],
         "title": "Finding",
         "description": "One Poka-yoke result. Extra keys carry context (measured, limit, unit, basis, basis_type, batch, ...)."
+      },
+      "GatewayOverviewOut": {
+        "properties": {
+          "routes": {
+            "items": {
+              "$ref": "#/components/schemas/GatewayRouteOut"
+            },
+            "type": "array",
+            "title": "Routes"
+          },
+          "upstreams": {
+            "items": {
+              "$ref": "#/components/schemas/GatewayUpstreamOut"
+            },
+            "type": "array",
+            "title": "Upstreams"
+          }
+        },
+        "type": "object",
+        "required": [
+          "routes",
+          "upstreams"
+        ],
+        "title": "GatewayOverviewOut"
+      },
+      "GatewayRouteOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "uris": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Uris"
+          },
+          "priority": {
+            "type": "integer",
+            "title": "Priority"
+          },
+          "upstream_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upstream Id"
+          },
+          "plugins": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Plugins"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "uris",
+          "priority",
+          "upstream_id",
+          "plugins"
+        ],
+        "title": "GatewayRouteOut"
+      },
+      "GatewayUpstreamOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "nodes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Nodes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "nodes"
+        ],
+        "title": "GatewayUpstreamOut"
       },
       "HTTPValidationError": {
         "properties": {
@@ -4781,6 +5248,122 @@
         ],
         "title": "NoticeOut"
       },
+      "OpenTaskOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "process_instance_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Process Instance Id"
+          },
+          "assignee": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assignee"
+          },
+          "created": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "process_instance_id",
+          "assignee",
+          "created"
+        ],
+        "title": "OpenTaskOut"
+      },
+      "OutboxOverviewOut": {
+        "properties": {
+          "pending": {
+            "type": "integer",
+            "title": "Pending"
+          },
+          "processed": {
+            "type": "integer",
+            "title": "Processed"
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed"
+          },
+          "oldest_pending_age_s": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Oldest Pending Age S"
+          },
+          "last_processed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Processed At"
+          },
+          "failed_events": {
+            "items": {
+              "$ref": "#/components/schemas/FailedOutboxEventOut"
+            },
+            "type": "array",
+            "title": "Failed Events"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pending",
+          "processed",
+          "failed",
+          "oldest_pending_age_s",
+          "last_processed_at",
+          "failed_events"
+        ],
+        "title": "OutboxOverviewOut"
+      },
       "PortalComplaintIn": {
         "properties": {
           "delivery_point_id": {
@@ -4918,6 +5501,53 @@
           "portions"
         ],
         "title": "PortionCheckIn"
+      },
+      "ProcessDefinitionOut": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "deployment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deployment Id"
+          },
+          "running_instances": {
+            "type": "integer",
+            "title": "Running Instances"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "name",
+          "version",
+          "deployment_id",
+          "running_instances"
+        ],
+        "title": "ProcessDefinitionOut"
       },
       "ReadingAccepted": {
         "properties": {
@@ -5576,6 +6206,55 @@
         ],
         "title": "ThresholdOut"
       },
+      "TimerJobOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "process_instance_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Process Instance Id"
+          },
+          "due_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due Date"
+          },
+          "retries": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retries"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "process_instance_id",
+          "due_date",
+          "retries"
+        ],
+        "title": "TimerJobOut"
+      },
       "ValidationError": {
         "properties": {
           "loc": {
@@ -5738,6 +6417,46 @@
           "business_tz"
         ],
         "title": "WhoAmI"
+      },
+      "WorkflowOverviewOut": {
+        "properties": {
+          "definitions": {
+            "items": {
+              "$ref": "#/components/schemas/ProcessDefinitionOut"
+            },
+            "type": "array",
+            "title": "Definitions"
+          },
+          "open_tasks": {
+            "items": {
+              "$ref": "#/components/schemas/OpenTaskOut"
+            },
+            "type": "array",
+            "title": "Open Tasks"
+          },
+          "timer_jobs": {
+            "items": {
+              "$ref": "#/components/schemas/TimerJobOut"
+            },
+            "type": "array",
+            "title": "Timer Jobs"
+          },
+          "deadletter_jobs": {
+            "items": {
+              "$ref": "#/components/schemas/DeadLetterJobOut"
+            },
+            "type": "array",
+            "title": "Deadletter Jobs"
+          }
+        },
+        "type": "object",
+        "required": [
+          "definitions",
+          "open_tasks",
+          "timer_jobs",
+          "deadletter_jobs"
+        ],
+        "title": "WorkflowOverviewOut"
       }
     },
     "securitySchemes": {

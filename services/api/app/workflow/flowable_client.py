@@ -1,6 +1,7 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
-"""Minimal Flowable REST client (httpx). Only the worker talks to Flowable.
+"""Minimal Flowable REST client (httpx). Business routes never call Flowable; only the
+worker and the sysadmin admin endpoints (read-only views + dead-letter retry) do.
 
 Swapping the engine (e.g. Operaton) means rewriting this file only.
 Callbacks use the PULL pattern: the worker acquires external-worker jobs or
@@ -13,11 +14,16 @@ from typing import Any
 
 import httpx
 
+from app.core.error_text import sanitize_error_text
 from app.core.errors import InfraError
 
 
 class FlowableError(Exception):
     """Flowable answered with an unexpected status (logic error, do not retry blindly)."""
+
+
+class FlowableNotFoundError(FlowableError):
+    """Flowable answered 404 (unknown job, task or instance id)."""
 
 
 class FlowableUnavailableError(InfraError):
@@ -53,11 +59,15 @@ class FlowableClient:
         try:
             res = self._http.request(method, path, **kwargs)
         except httpx.TransportError as exc:
-            raise FlowableUnavailableError(f"{method} {path}: {exc}") from exc
+            raise FlowableUnavailableError(f"{method} {path}: {sanitize_error_text(exc, 200)}") from exc
         if res.status_code >= 500:
-            raise FlowableUnavailableError(f"{method} {path}: HTTP {res.status_code} {res.text[:200]}")
+            raise FlowableUnavailableError(
+                f"{method} {path}: HTTP {res.status_code} {sanitize_error_text(res.text, 200)}"
+            )
         if res.status_code not in expected:
-            raise FlowableError(f"{method} {path}: HTTP {res.status_code} {res.text[:300]}")
+            if res.status_code == 404:
+                raise FlowableNotFoundError(f"{method} {path}: HTTP 404")
+            raise FlowableError(f"{method} {path}: HTTP {res.status_code} {sanitize_error_text(res.text, 300)}")
         return res.json() if res.content and "json" in res.headers.get("content-type", "") else None
 
     # -- repository ---------------------------------------------------------
@@ -152,3 +162,32 @@ class FlowableClient:
             expected=(204,),
             json={"workerId": worker_id, "variables": _variables(variables)},
         )
+
+    # -- admin views (sysadmin endpoints; short timeouts, read-only except the dead-letter retry) -----------
+    def engine_info(self) -> dict[str, Any]:
+        return self._request("GET", "/service/management/engine")
+
+    def latest_process_definitions(self) -> list[dict[str, Any]]:
+        return self._request("GET", "/service/repository/process-definitions", params={"latest": "true", "size": 100})[
+            "data"
+        ]
+
+    def running_instance_count(self, definition_key: str) -> int:
+        res = self._request(
+            "GET", "/service/runtime/process-instances", params={"processDefinitionKey": definition_key, "size": 1}
+        )
+        return int(res["total"])
+
+    def open_tasks(self, limit: int = 50) -> list[dict[str, Any]]:
+        params = {"size": limit, "sort": "createTime", "order": "desc"}
+        return self._request("GET", "/service/runtime/tasks", params=params)["data"]
+
+    def timer_jobs(self, limit: int = 50) -> list[dict[str, Any]]:
+        return self._request("GET", "/service/management/timer-jobs", params={"size": limit})["data"]
+
+    def deadletter_jobs(self, limit: int = 50) -> list[dict[str, Any]]:
+        return self._request("GET", "/service/management/deadletter-jobs", params={"size": limit})["data"]
+
+    def retry_deadletter_job(self, job_id: str) -> None:
+        """Move a dead-letter job back to the executable jobs (Flowable resets its retries)."""
+        self._request("POST", f"/service/management/deadletter-jobs/{job_id}", expected=(204,), json={"action": "move"})

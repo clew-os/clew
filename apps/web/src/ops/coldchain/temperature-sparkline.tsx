@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import { useAssetReadings } from "../../api/coldchain-audit-api";
 import { QueryBoundary } from "../../components/query-boundary";
-import { plainNumber } from "@metrace/api-client";
+import { plainNumber } from "@clew/api-client";
 import { buildSparkline } from "./sparkline-geometry";
 
 const SIZE = { width: 480, height: 140, pad: 14 } as const;

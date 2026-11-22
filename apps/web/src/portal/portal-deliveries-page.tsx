@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { PortalDelivery } from "@metrace/api-client";
+import type { PortalDelivery } from "@clew/api-client";
 import { Link } from "react-router";
 import { usePortalDeliveries } from "../api/portal-api";
 import { QueryBoundary } from "../components/query-boundary";

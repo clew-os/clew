@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { createApiClient } from "@metrace/api-client";
+import { createApiClient } from "@clew/api-client";
 import { getAccessToken } from "../auth/keycloak-session";
 
 /**

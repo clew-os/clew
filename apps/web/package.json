@@ -1,9 +1,9 @@
 {
-  "name": "@metrace/web",
-  "version": "0.0.0",
+  "name": "@clew/web",
+  "version": "0.9.0",
   "private": true,
   "license": "Apache-2.0",
-  "description": "metrace kitchen operations web app (Vietnamese UI)",
+  "description": "clew kitchen operations web app (Vietnamese UI)",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@metrace/api-client": "0.0.0",
+    "@clew/api-client": "0.9.0",
     "@tanstack/react-query": "5.104.1",
     "cytoscape": "3.34.3",
     "keycloak-js": "26.2.4",

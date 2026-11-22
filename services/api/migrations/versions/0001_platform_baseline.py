@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """platform baseline: audit chain, outbox, file objects, runtime grants
 
@@ -73,20 +73,18 @@ def upgrade() -> None:
 
     # Runtime role: full DML on business tables (now and future), but the audit
     # chain is append-only for it.
-    op.execute("GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO metrace_app")
-    op.execute("GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO metrace_app")
-    op.execute(
-        "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO metrace_app"
-    )
-    op.execute("ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO metrace_app")
-    op.execute("REVOKE UPDATE, DELETE, TRUNCATE ON audit_event FROM metrace_app")
-    op.execute("REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON alembic_version FROM metrace_app")
+    op.execute("GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO clew_app")
+    op.execute("GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO clew_app")
+    op.execute("ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO clew_app")
+    op.execute("ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO clew_app")
+    op.execute("REVOKE UPDATE, DELETE, TRUNCATE ON audit_event FROM clew_app")
+    op.execute("REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON alembic_version FROM clew_app")
 
 
 def downgrade() -> None:
-    op.execute("ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE USAGE, SELECT ON SEQUENCES FROM metrace_app")
+    op.execute("ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE USAGE, SELECT ON SEQUENCES FROM clew_app")
     op.execute(
-        "ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE SELECT, INSERT, UPDATE, DELETE ON TABLES FROM metrace_app"
+        "ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE SELECT, INSERT, UPDATE, DELETE ON TABLES FROM clew_app"
     )
     op.drop_table("file_object")
     op.drop_table("outbox_event")

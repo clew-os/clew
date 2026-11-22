@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import {
   type ClusterSuggestion,
@@ -11,7 +11,7 @@ import {
   type LineageNodeType,
   asShape,
   unwrap,
-} from "@metrace/api-client";
+} from "@clew/api-client";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "./api-client-instance";
 

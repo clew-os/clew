@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Lot } from "@metrace/api-client";
+import type { Lot } from "@clew/api-client";
 import { useState } from "react";
 import { Badge, inputClass } from "../../components/ui-primitives";
 

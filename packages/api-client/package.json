@@ -1,9 +1,9 @@
 {
-  "name": "@metrace/api-client",
-  "version": "0.0.0",
+  "name": "@clew/api-client",
+  "version": "0.9.0",
   "private": true,
   "license": "Apache-2.0",
-  "description": "Typed client for the metrace API (openapi-fetch + generated schema)",
+  "description": "Typed client for the clew API (openapi-fetch + generated schema)",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Cold chain: a breach is N CONSECUTIVE readings (by server receive time) outside
 the asset's safe band. One stray reading is noise, not an alarm."""

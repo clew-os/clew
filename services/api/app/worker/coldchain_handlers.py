@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Cold-chain alerts in Flowable (`cold-chain-alert`): QA checks the fridge under a
 timer that escalates to the director. Started/completed only by the worker."""
@@ -15,7 +15,7 @@ from app.models.kitchen_and_customers import Asset
 from app.worker.handler_registry import OutboxMessage, handles, reconciler
 from app.workflow.flowable_client import FlowableClient
 
-log = logging.getLogger("metrace.worker.coldchain")
+log = logging.getLogger("clew.worker.coldchain")
 PROCESS_KEY = "cold-chain-alert"
 
 

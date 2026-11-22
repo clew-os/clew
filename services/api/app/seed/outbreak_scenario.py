@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Outbreak scenario (on top of baseline): two schools report children with
 stomach aches after yesterday's lunch. The third report is filed live during the

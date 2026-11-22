@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { type Ingredient, type ReceivingOut, toFindings } from "@metrace/api-client";
+import { type Ingredient, type ReceivingOut, toFindings } from "@clew/api-client";
 import { Button, Card } from "../../components/ui-primitives";
 import { ViolationBanner } from "../../components/violation-banner";
 import { useBusinessClock } from "../../layout/business-clock";

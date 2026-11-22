@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-SPDX-FileCopyrightText: The metrace Authors
+SPDX-FileCopyrightText: The Clew Authors
 SPDX-License-Identifier: Apache-2.0
 
 Test fixture (kept from the W0 spike): external-worker callback, then a user
@@ -8,12 +8,12 @@ task guarded by a 10 s boundary timer that escalates to a second user task.
 -->
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              xmlns:flowable="http://flowable.org/bpmn"
-             targetNamespace="https://metrace.example/bpmn/test">
+             targetNamespace="https://clew.example/bpmn/test">
   <process id="spike-timer-escalation" name="Spike: timer escalation" isExecutable="true">
     <startEvent id="start"/>
     <sequenceFlow id="f1" sourceRef="start" targetRef="notifyApp"/>
 
-    <serviceTask id="notifyApp" name="Notify app" flowable:type="external-worker" flowable:topic="metrace-spike"/>
+    <serviceTask id="notifyApp" name="Notify app" flowable:type="external-worker" flowable:topic="clew-spike"/>
     <sequenceFlow id="f2" sourceRef="notifyApp" targetRef="review"/>
 
     <userTask id="review" name="QA review" flowable:candidateGroups="qa"/>

@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { ACCEPTED_DOCUMENT_TYPES, type FileOut, type MealSlot, type PortalPoint } from "@metrace/api-client";
+import { ACCEPTED_DOCUMENT_TYPES, type FileOut, type MealSlot, type PortalPoint } from "@clew/api-client";
 import { useRef, useState } from "react";
 import { useSearchParams } from "react-router";
 import { useCreatePortalComplaint, useUploadPortalFile } from "../api/portal-api";

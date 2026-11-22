@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { type MealSlot, unwrap } from "@metrace/api-client";
+import { type MealSlot, unwrap } from "@clew/api-client";
 import { useQuery } from "@tanstack/react-query";
 import { computeOffsetMs } from "../lib/server-clock";
 import { api } from "./api-client-instance";

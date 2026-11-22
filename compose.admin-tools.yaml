@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: The Clew Authors
+# SPDX-License-Identifier: Apache-2.0
+#
+# Maintenance window only: publish the SeaweedFS master UI and filer UI on
+# 127.0.0.1. They have NO login and the master API changes state on plain GET
+# requests, so close them again when done (see docs/admin-guide.md):
+#   make admin-tools-open    /    make admin-tools-close
+services:
+  seaweedfs:
+    ports: ["127.0.0.1:9333:9333", "127.0.0.1:8888:8888"]

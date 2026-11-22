@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { MealSlot } from "@metrace/api-client";
+import type { MealSlot } from "@clew/api-client";
 
 export const MEAL_SLOTS: readonly MealSlot[] = ["breakfast", "lunch", "dinner"];
 

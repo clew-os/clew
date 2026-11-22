@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Portal isolation, both directions: reading another org's data and writing
 references to another org's resources are 404; staff on portal routes are 403."""

@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { ACCEPTED_DOCUMENT_TYPES, type FileOut } from "@metrace/api-client";
+import { ACCEPTED_DOCUMENT_TYPES, type FileOut } from "@clew/api-client";
 import { type Dispatch, type SetStateAction, useRef } from "react";
 import { useUploadDocument } from "../../api/mutations";
 import { ViolationBanner } from "../../components/violation-banner";

@@ -1,6 +1,6 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
-"""Alembic environment. Runs as the schema owner (metrace_migrator), never as the app role."""
+"""Alembic environment. Runs as the schema owner (clew_migrator), never as the app role."""
 
 import os
 

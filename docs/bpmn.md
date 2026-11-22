@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: The metrace Authors
+SPDX-FileCopyrightText: The Clew Authors
 SPDX-License-Identifier: Apache-2.0
 -->
 
@@ -7,9 +7,11 @@ SPDX-License-Identifier: Apache-2.0
 
 Only processes that need **timers and people** run in Flowable. The kitchen
 flow is a state machine in the API, and incident status is owned by the API.
-Only the worker calls Flowable. An API action writes an outbox event in the same
+Only the worker drives Flowable. An API action writes an outbox event in the same
 transaction; the worker handles it after commit, so a Flowable outage delays
-workflow steps but never blocks the kitchen or a recall.
+workflow steps but never blocks the kitchen or a recall. Business routes never
+call Flowable; the sysadmin endpoints (`/api/v1/admin/workflow`) only read it and
+move dead-letter jobs back to the queue (see [admin-guide.md](admin-guide.md)).
 
 Files live in `workflows/bpmn/` and are deployed by the worker at start-up.
 Deployment is idempotent: the deployment name embeds a hash of the file, so an
@@ -52,6 +54,6 @@ QA acknowledging the alert in the app completes `qa_check_fridge` and any open
 
 ## Callbacks
 
-Flowable never calls metrace. The worker calls the Flowable REST API to start
+Flowable never calls Clew. The worker calls the Flowable REST API to start
 processes and to complete tasks, keyed by business key, so Flowable needs
 neither the app's URL nor any credential of it.

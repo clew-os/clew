@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Dishes, menus, cooking batches (Mẫu 2, the central entity), batch inputs,
 portion checks (Mẫu 3) and retained samples."""

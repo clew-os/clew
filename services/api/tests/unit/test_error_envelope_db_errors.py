@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Database errors map to the envelope: 409 for constraints (logged with the name), 422 for bad values."""
 
@@ -39,7 +39,7 @@ client = TestClient(app)
 
 
 def test_integrity_error_is_409_and_names_the_constraint_in_the_log(caplog):
-    with caplog.at_level(logging.WARNING, logger="metrace.errors"):
+    with caplog.at_level(logging.WARNING, logger="clew.errors"):
         res = client.post("/duplicate", headers={"x-request-id": "req-42"})
     assert res.status_code == 409
     assert res.json()["error"]["code"] == "CONFLICT"

@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: The metrace Authors
+SPDX-FileCopyrightText: The Clew Authors
 SPDX-License-Identifier: Apache-2.0
 -->
 
@@ -11,11 +11,31 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-22
+
+First tagged release: feature complete for the contest scope.
+
+### Changed
+- The project is now called **Clew** (was the working name `metrace`): realm `clew`, clients
+  `clew-web`, `clew-cli`, `clew-api`, `clew-test`, CLI command `clew`, database and roles `clew*`,
+  compose project and images `clew`, `.env` keys `CLEW_*` (run `make reset` on an old checkout).
+- Business routes still never call Flowable; the API now also reads it from the sysadmin endpoints.
+
 ### Added
+- Tier-1 admin plane (`docs/admin-guide.md`): a second gateway listener `127.0.0.1:9081` that
+  routes only the Keycloak admin console of realm `clew` (own admin hostname; the public
+  listener denies `/auth/admin/*`, the master realm is routed nowhere); SeaweedFS master and
+  filer UIs opt-in for maintenance (`make admin-tools-open`); APISIX Control API on the
+  internal network only. Keycloak login and admin events are recorded (30 days).
+- Platform role `sysadmin` and demo account `sysadmin-khoa`: reaches `/api/v1/admin/*` only,
+  no business data; least-privilege console grants for realm `clew` (no impersonation).
+- Clew core admin (`/admin` in the web app, `/api/v1/admin/*`): health of every core service,
+  Flowable definitions, instances, tasks, timers and dead-letter retry, outbox backlog and retry,
+  gateway routes (plugin names only). Admin retries are written to the audit chain.
 - Repository skeleton: Apache-2.0, REUSE metadata, AUTHORS, CI (ruff, reuse lint, gitleaks, unit tests).
 - `make init` generates local secrets into `.env`; compose refuses to start without it.
 - Keycloak 26.8 (official image) with admin/account consoles disabled at build time.
-- Realm `metrace`: roles, clients (web PKCE, CLI device flow, sensor client credentials), customer organizations.
+- Realm `clew`: roles, clients (web PKCE, CLI device flow, sensor client credentials), customer organizations.
 - APISIX standalone gateway: `/auth` allowlist, `/api` JWT verification (JWKS), per-token rate limits.
 - API: JWT re-verification, `GET /api/v1/whoami`.
 - Flowable 8 REST client: idempotent deploy, idempotent start by business key, external-worker jobs, tasks.
@@ -62,7 +82,7 @@ and the project uses [Semantic Versioning](https://semver.org/).
 - P6: complaint answer deadline from the customer profile (`sla_hours`), worker sweep flags
   overdue complaints (no BPMN).
 - Customer differences (school vs factory) are profile data, not code branches.
-- CLI `metrace` (device-flow login, staff only, `whoami`, `trace`, `shipments list`, `incidents list`);
+- CLI `clew` (device-flow login, staff only, `whoami`, `trace`, `shipments list`, `incidents list`);
   lineage accepts business codes as well as UUIDs.
 - Cold chain: sensor gateway machine identity may only report its own assets (claim), device clock
   skew is rejected, N consecutive out-of-band readings open one alert per asset and start the
@@ -73,7 +93,7 @@ and the project uses [Semantic Versioning](https://semver.org/).
 - Incident report drafts by a local LLM (Ollama, optional; deterministic template otherwise),
   edited and approved by QA; `scripts/ai-up.sh`.
 - #1 Mẫu 2 as PDF (`GET /api/v1/forms/2/{batch_id}.pdf`, Noto Sans OFL-1.1) with the audit anchor in the footer.
-- #2 recall drill (`POST /api/v1/recall-drills`, `metrace drill run`): trace, lock preview in a
+- #2 recall drill (`POST /api/v1/recall-drills`, `clew drill run`): trace, lock preview in a
   rolled-back savepoint, portion coverage, recorded in the audit chain.
 
 - Web screens: complaints with cluster suggestions and SLA countdowns, incident board and detail
@@ -85,4 +105,7 @@ and the project uses [Semantic Versioning](https://semver.org/).
 - Receiving and incident codes no longer collide under concurrent requests.
 
 ### Security
-- The CI-only `metrace-test` client only exists when `KC_OVERLAYS=test`; demos remove it.
+- `clew-web` and `clew-cli` tokens map only app roles (full scope off), so they never carry
+  Keycloak admin roles.
+- Error texts shown on the admin pages are sanitised (no credentials, SQL or parameters).
+- The CI-only `clew-test` client only exists when `KC_OVERLAYS=test`; demos remove it.

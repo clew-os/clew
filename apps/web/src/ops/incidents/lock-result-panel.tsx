@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { LockResult } from "@metrace/api-client";
+import type { LockResult } from "@clew/api-client";
 import { AuditAnchor } from "../../components/audit-anchor";
 
 /** What one confirmation of suspects did, measured by the server (it is a single transaction). */

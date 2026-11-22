@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { type Batch, type Dish, type Shipment, toFindings } from "@metrace/api-client";
+import { type Batch, type Dish, type Shipment, toFindings } from "@clew/api-client";
 import { useEffect, useState } from "react";
 import { useDispatchShipment } from "../../api/mutations";
 import { canDo } from "../../auth/roles";

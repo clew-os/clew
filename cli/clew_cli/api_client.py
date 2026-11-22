@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Thin client for /api/v1 through the gateway: same API as the web app (headless)."""
 
@@ -6,7 +6,7 @@ from typing import Any
 
 import httpx
 
-from metrace_cli.auth_device_flow import access_token, base_url
+from clew_cli.auth_device_flow import access_token, base_url
 
 INTERNAL_ROLES = {"qa", "procurement", "chef", "driver", "cskh", "director", "approver"}
 

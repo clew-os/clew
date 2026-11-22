@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Gateway + identity contract: one issuer, org claim, 401s, /auth allowlist, rate limits."""
 
@@ -9,13 +9,13 @@ from tests.integration.gateway_tokens import GATEWAY, auth, claims, fresh_sensor
 
 pytestmark = pytest.mark.integration
 
-PUBLIC_ISSUER = f"{GATEWAY}/auth/realms/metrace"
+PUBLIC_ISSUER = f"{GATEWAY}/auth/realms/clew"
 
 
 def test_customer_token_has_org_claim_keyed_by_alias_with_id():
     token_claims = claims(user_token("truong-a"))
     assert token_claims["iss"] == PUBLIC_ISSUER
-    assert token_claims["aud"] == "metrace-api" or "metrace-api" in token_claims["aud"]
+    assert token_claims["aud"] == "clew-api" or "clew-api" in token_claims["aud"]
     org = token_claims["organization"]
     assert isinstance(org, dict) and set(org) == {"truong-a"}
     assert org["truong-a"]["id"]
@@ -57,15 +57,15 @@ def test_tampered_signature_is_401():
     [
         "/auth/admin/",
         "//auth/admin/",
-        "/auth/admin/realms/metrace/users",
+        "/auth/admin/realms/clew/users",
         "/auth/admin/master/console/",
         "/auth/realms/master/.well-known/openid-configuration",
         "/auth/realms/master/protocol/openid-connect/token",
-        "/auth/realms/metrace/account/",
+        "/auth/realms/clew/account/",
         "/auth/%61dmin/",
         "/auth/realms/%6Daster/.well-known/openid-configuration",
-        "/auth/realms/metrace/protocol/openid-connect/../../../master/.well-known/openid-configuration",
-        "/auth/realms/metrace/protocol/openid-connect/..%2F..%2F..%2Fmaster%2F.well-known%2Fopenid-configuration",
+        "/auth/realms/clew/protocol/openid-connect/../../../master/.well-known/openid-configuration",
+        "/auth/realms/clew/protocol/openid-connect/..%2F..%2F..%2Fmaster%2F.well-known%2Fopenid-configuration",
     ],
 )
 def test_auth_paths_outside_allowlist_are_404(path):

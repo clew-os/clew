@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """#6: verify the audit hash chain, optionally against an anchor (seq, hash) that
 was printed outside the database (recall notice, PDF footer, drill result)."""

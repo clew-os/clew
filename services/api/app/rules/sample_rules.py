@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """P4: retained samples. Minimum quantity (solid g / liquid ml) and no discard
 before max(stored_at, meal_end_at) + retention hours."""

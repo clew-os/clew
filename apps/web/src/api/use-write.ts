@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { ApiError } from "@metrace/api-client";
+import type { ApiError } from "@clew/api-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 /**

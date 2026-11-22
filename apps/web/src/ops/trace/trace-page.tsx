@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { LineageDirection, LineageNode, LineageNodeType } from "@metrace/api-client";
+import type { LineageDirection, LineageNode, LineageNodeType } from "@clew/api-client";
 import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 import { useSearchParams } from "react-router";
 import { type LineageParams, useLineage } from "../../api/incident-queries";

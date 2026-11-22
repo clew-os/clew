@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 
 .DEFAULT_GOAL := help
@@ -21,6 +21,12 @@ down: ## stop the stack (keep data)
 
 reset: ## stop the stack and DELETE all data volumes
 	docker compose down -v
+
+admin-tools-open: ## publish SeaweedFS master/filer UIs on 127.0.0.1:9333/8888 (no login: maintenance only)
+	docker compose -f compose.yaml -f compose.admin-tools.yaml up -d --no-deps --wait seaweedfs
+
+admin-tools-close: ## unpublish the SeaweedFS UIs again
+	docker compose -f compose.yaml up -d --no-deps --wait seaweedfs
 
 lint: ## ruff + reuse
 	ruff check .
@@ -45,4 +51,4 @@ licenses: ## regenerate docs/license-declaration.{md,csv}; fails outside the all
 openapi: ## export the API schema for the web client (packages/api-client/openapi.json)
 	cd services/api && uv run python -c "import json; from app.main import create_app; print(json.dumps(create_app().openapi(), indent=2, ensure_ascii=False))" > ../../packages/api-client/openapi.json
 
-.PHONY: help init up dev-ports down reset lint test test-integration openapi demo-reset demo-preflight licenses
+.PHONY: help init up dev-ports down reset admin-tools-open admin-tools-close lint test test-integration openapi demo-reset demo-preflight licenses

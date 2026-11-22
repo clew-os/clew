@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";

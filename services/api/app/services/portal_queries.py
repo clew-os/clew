@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Customer portal read/write, always filtered by the organizations IN THE TOKEN
 (never by a query parameter). Another organization's data answers 404, so a

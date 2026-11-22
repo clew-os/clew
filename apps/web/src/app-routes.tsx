@@ -1,9 +1,13 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import { type ReactElement, Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { type AppArea, areaForRoles, homePathForRoles } from "./auth/roles";
 import { currentSession } from "./auth/keycloak-session";
+import { CoreStatusPage } from "./admin/core-status-page";
+import { GatewayPage } from "./admin/gateway-page";
+import { OutboxPage } from "./admin/outbox-page";
+import { WorkflowPage } from "./admin/workflow-page";
 import { AppShell } from "./layout/app-shell";
 import { NoAccessPage } from "./layout/no-access-page";
 import { AuditPage } from "./ops/audit/audit-page";
@@ -75,6 +79,20 @@ export function AppRoutes() {
         <Route path="complaints" element={<PortalComplaintsPage />} />
         <Route path="notices" element={<PortalNoticesPage />} />
         <Route path="*" element={<Navigate to="/portal" replace />} />
+      </Route>
+      <Route
+        path="/admin"
+        element={
+          <RequireArea area="admin">
+            <AppShell area="admin" />
+          </RequireArea>
+        }
+      >
+        <Route index element={<CoreStatusPage />} />
+        <Route path="workflow" element={<WorkflowPage />} />
+        <Route path="outbox" element={<OutboxPage />} />
+        <Route path="gateway" element={<GatewayPage />} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
       <Route path="*" element={<GoHome />} />
     </Routes>

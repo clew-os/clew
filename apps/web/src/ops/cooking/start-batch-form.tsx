@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Dish, MealSlot } from "@metrace/api-client";
+import type { Dish, MealSlot } from "@clew/api-client";
 import { useState } from "react";
 import { useStartBatch } from "../../api/mutations";
 import { Button, Card, Field, inputClass } from "../../components/ui-primitives";

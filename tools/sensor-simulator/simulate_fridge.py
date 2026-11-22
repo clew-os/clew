@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Simulated fridge thermometers (no real IoT). Posts readings through the gateway
 with the `sensor-gateway` machine identity (client credentials).
@@ -6,7 +6,7 @@ with the `sensor-gateway` machine identity (client credentials).
     uv run simulate_fridge.py --asset TU-MAU-01 --mode breach
     modes: normal (inside the band), drift (slowly warms up), breach (out of band now)
 
-Env: METRACE_URL (default http://localhost:9080), SENSOR_GATEWAY_CLIENT_SECRET.
+Env: CLEW_URL (default http://localhost:9080), SENSOR_GATEWAY_CLIENT_SECRET.
 """
 
 import argparse
@@ -17,8 +17,8 @@ from datetime import UTC, datetime
 
 import httpx
 
-BASE = os.environ.get("METRACE_URL", "http://localhost:9080").rstrip("/")
-TOKEN_URL = f"{BASE}/auth/realms/metrace/protocol/openid-connect/token"
+BASE = os.environ.get("CLEW_URL", "http://localhost:9080").rstrip("/")
+TOKEN_URL = f"{BASE}/auth/realms/clew/protocol/openid-connect/token"
 
 
 def token() -> tuple[str, float]:

@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { MealStep } from "@metrace/api-client";
+import type { MealStep } from "@clew/api-client";
 import { MEAL_STEP_LABELS_VI } from "../../lib/labels-vi";
 
 const count = (detail: Record<string, unknown>, key: string): number => Number(detail[key] ?? 0);

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Walk the lineage graph (view `lineage_edge`) forward (where did it go?) or
 backward (where did it come from?) with a recursive CTE.

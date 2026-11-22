@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 #
 # Official Keycloak image from the publisher (quay.io/keycloak).
@@ -12,11 +12,11 @@ RUN /opt/keycloak/bin/kc.sh build \
       --db=postgres \
       --health-enabled=true \
       --http-relative-path=/auth \
-      --features-disabled=admin,account
+      --features-disabled=account
 
 FROM quay.io/keycloak/keycloak:26.8.0
 COPY --from=build /opt/keycloak/ /opt/keycloak/
-COPY --chown=1000:0 realm-metrace.json /opt/keycloak/data/import/realm-metrace.json
+COPY --chown=1000:0 realm-clew.json /opt/keycloak/data/import/realm-clew.json
 COPY --chown=1000:0 healthcheck.sh /opt/keycloak/healthcheck.sh
 EXPOSE 8080 9000
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]

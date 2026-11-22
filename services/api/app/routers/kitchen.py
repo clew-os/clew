@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Kitchen flow endpoints (Mẫu 1-2, samples). Poka-yoke violations answer 422."""
 

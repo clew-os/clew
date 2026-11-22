@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Build docs/license-declaration.{md,csv} from the real dependency trees and fail
 when a license is outside the allow-list (docs/license-policy.md).
@@ -101,7 +101,7 @@ def python_rows(project: str, payload: list[dict], runtime: set[str]) -> list[di
             "where": project,
         }
         for p in payload
-        if p["Name"].lower() not in {"metrace-api", "metrace-cli"}
+        if p["Name"].lower() not in {"clew-api", "clew-cli"}
     ]
 
 
@@ -165,7 +165,7 @@ def main(python_dir: Path) -> int:
     # REUSE-IgnoreStart (header text written into the generated file, not this file's license)
     lines = [
         "<!--",
-        "SPDX-FileCopyrightText: The metrace Authors",
+        "SPDX-FileCopyrightText: The Clew Authors",
         "SPDX-License-Identifier: Apache-2.0",
         # REUSE-IgnoreEnd
         "-->",

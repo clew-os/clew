@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """P1: goods receipt. Block missing documents, blocked/locked supplier, expired
 food-safety certificate (#4), out-of-range temperature. Warn when the

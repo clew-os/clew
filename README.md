@@ -1,14 +1,17 @@
 <!--
-SPDX-FileCopyrightText: The metrace Authors
+SPDX-FileCopyrightText: The Clew Authors
 SPDX-License-Identifier: Apache-2.0
 -->
 
-# metrace
+# Clew
 
-> Working name. The digital operating system of a catering company that cooks
-> meals for school canteens and factories. When children fall ill, metrace
-> traces the **cooking batch** back to ingredient lots and suppliers, and locks
-> that food at **every** delivery point within a second.
+> *clew* (n.): the ball of thread Ariadne gave Theseus to find his way back out
+> of the labyrinth, and the origin of the word *clue*.
+
+The digital operating system of a catering company that cooks meals for school
+canteens and factories. When children fall ill, Clew follows the thread from
+the **cooking batch** back to ingredient lots and suppliers, and locks that food
+at **every** delivery point within a second.
 
 - **Poka-yoke, not paperwork:** a wrong step is impossible, not just recorded —
   expired supplier certificate, warm delivery, undercooked batch, missing
@@ -37,8 +40,8 @@ Open <http://localhost:9080> (bound to 127.0.0.1 only).
 
 | Path      | Service |
 |-----------|---------|
-| `/`       | Web app: `/ops` for staff (tablet), `/portal` for customers (phone) |
-| `/api/*`  | metrace API (JWT verified at the gateway and again in the API) |
+| `/`       | Web app: `/ops` for staff (tablet), `/portal` for customers (phone), `/admin` for system admins |
+| `/api/*`  | Clew API (JWT verified at the gateway and again in the API) |
 | `/auth/*` | Keycloak login, token, device and discovery endpoints only |
 
 Demo accounts (the password is `DEMO_USER_PASSWORD` in your `.env`):
@@ -53,6 +56,15 @@ Demo accounts (the password is `DEMO_USER_PASSWORD` in your `.env`):
 | `cskh-thu` | Customer care: complaints |
 | `director-nam` | Director |
 | `truong-a`, `truong-b`, `truong-c`, `nha-may-x` | Customer staff (schools, factory) |
+| `sysadmin-khoa` | System admin (tier 1): core admin page and Keycloak admin console (no impersonation), no business data |
+
+Admin plane (tier 1, also bound to 127.0.0.1 only; see [admin-guide.md](docs/admin-guide.md)):
+
+| URL | Admin UI |
+|---|---|
+| <http://localhost:9080/admin> | Clew core admin: health of every core service, Flowable processes and dead-letter retry, outbox, gateway routes |
+| <http://localhost:9081/auth/admin/clew/console/> | Keycloak admin console: users, roles, customer organizations, clients, sessions |
+| <http://localhost:9333/>, <http://localhost:8888/> | SeaweedFS master UI and file browser, for maintenance only (`make admin-tools-open` / `make admin-tools-close`) |
 
 Fresh demo data for "today" at any time:
 
@@ -65,10 +77,10 @@ scripts/demo-reset.sh baseline,outbreak   # plus two complaints about yesterday'
 
 ```bash
 uv tool install ./cli
-metrace login                                     # device flow in the browser, staff only
-metrace trace lot LOT-20261008-XUONG-LON -d forward
-metrace shipments list --status held
-metrace drill run lot LOT-20261008-XUONG-LON      # recall drill, dry run
+clew login                                     # device flow in the browser, staff only
+clew trace lot LOT-20261008-XUONG-LON -d forward
+clew shipments list --status held
+clew drill run lot LOT-20261008-XUONG-LON      # recall drill, dry run
 ```
 
 ## Optional pieces
@@ -89,6 +101,7 @@ metrace drill run lot LOT-20261008-XUONG-LON      # recall drill, dry run
 | [bpmn.md](docs/bpmn.md) | The two workflows (incident recall, cold-chain alert) |
 | [api.md](docs/api.md) | Authentication, authorization, errors, endpoints |
 | [deployment.md](docs/deployment.md) | Configuration, operations, clean-machine check |
+| [admin-guide.md](docs/admin-guide.md) | Administering the headless core (tier 1) |
 | [demo-guide.md](docs/demo-guide.md) | A 15-minute walkthrough |
 | [license-policy.md](docs/license-policy.md), [license-declaration.md](docs/license-declaration.md) | Licensing |
 

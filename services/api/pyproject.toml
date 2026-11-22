@@ -1,9 +1,9 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 [project]
-name = "metrace-api"
-version = "0.0.0"
-description = "metrace domain API and outbox worker"
+name = "clew-api"
+version = "0.9.0"
+description = "clew domain API and outbox worker"
 license = "Apache-2.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [

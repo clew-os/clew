@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Outbox handlers + reconcilers for incidents. Only the worker talks to Flowable.
 
@@ -22,7 +22,7 @@ from app.worker.handler_registry import OutboxMessage, handles, reconciler
 from app.worker.recall_notices import points_missing_notice, upsert_notices
 from app.workflow.flowable_client import FlowableClient
 
-log = logging.getLogger("metrace.worker.incident")
+log = logging.getLogger("clew.worker.incident")
 PROCESS_KEY = "incident-recall"
 
 

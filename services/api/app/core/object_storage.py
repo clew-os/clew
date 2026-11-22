@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """S3 (SeaweedFS) access. Objects are content-addressed and only ever streamed
 through the API (no presigned URLs), so authorization stays in one place."""
@@ -34,6 +34,34 @@ def ensure_bucket() -> None:
         s3_client().head_bucket(Bucket=bucket)
     except ClientError:
         s3_client().create_bucket(Bucket=bucket)
+
+
+@lru_cache
+def _quick_s3_client(timeout_s: float) -> BaseClient:
+    settings = get_settings()
+    return boto3.client(
+        "s3",
+        endpoint_url=settings.s3_endpoint_url,
+        aws_access_key_id=settings.s3_access_key,
+        aws_secret_access_key=settings.s3_secret_key,
+        region_name="us-east-1",
+        config=Config(
+            signature_version="s3v4",
+            s3={"addressing_style": "path"},
+            connect_timeout=timeout_s,
+            read_timeout=timeout_s,
+            retries={"max_attempts": 1},
+        ),
+    )
+
+
+def head_bucket_quick(timeout_s: float) -> bool:
+    """Admin probe: is the bucket reachable? Cached client with short timeouts and no retries; never raises."""
+    try:
+        _quick_s3_client(timeout_s).head_bucket(Bucket=get_settings().s3_bucket)
+    except Exception:
+        return False
+    return True
 
 
 def storage_key_for(sha256: str) -> str:

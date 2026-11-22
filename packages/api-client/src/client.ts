@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import createClient, { type Client } from "openapi-fetch";
 import { ApiError, networkError, toApiError } from "./api-error";

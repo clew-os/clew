@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 #
 # Clean machine proof: fresh volumes, `make init`, full stack, smoke + integration tests.
@@ -49,8 +49,8 @@ jobs:
         run: |
           docker compose -f compose.yaml -f compose.dev-ports.yaml up -d --wait --wait-timeout 300
           set -a; source .env; set +a
-          code=$(curl -s -X POST http://localhost:9080/auth/realms/metrace/protocol/openid-connect/token \
-            -d grant_type=password -d client_id=metrace-test -d username=qa-lan \
+          code=$(curl -s -X POST http://localhost:9080/auth/realms/clew/protocol/openid-connect/token \
+            -d grant_type=password -d client_id=clew-test -d username=qa-lan \
             --data-urlencode "password=$DEMO_USER_PASSWORD" | jq -r .error)
           test "$code" = "invalid_client"
       - name: logs on failure

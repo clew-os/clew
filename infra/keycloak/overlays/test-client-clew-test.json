@@ -2,8 +2,8 @@
   "ifResourceExists": "OVERWRITE",
   "clients": [
     {
-      "clientId": "metrace-test",
-      "name": "metrace test client (CI/pytest only, never in demo)",
+      "clientId": "clew-test",
+      "name": "clew test client (CI/pytest only, never in demo)",
       "enabled": true,
       "publicClient": true,
       "standardFlowEnabled": false,
@@ -11,11 +11,11 @@
       "directAccessGrantsEnabled": true,
       "protocolMappers": [
         {
-          "name": "audience-metrace-api",
+          "name": "audience-clew-api",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-audience-mapper",
           "config": {
-            "included.client.audience": "metrace-api",
+            "included.client.audience": "clew-api",
             "access.token.claim": "true",
             "id.token.claim": "false",
             "introspection.token.claim": "true"

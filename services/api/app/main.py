@@ -1,6 +1,6 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
-"""metrace API entry point."""
+"""Clew API entry point."""
 
 import logging
 
@@ -14,8 +14,8 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="metrace API",
-        version="0.0.0",
+        title="Clew API",
+        version="0.9.0",
         docs_url="/api/docs",
         openapi_url="/api/openapi.json",
         redoc_url=None,

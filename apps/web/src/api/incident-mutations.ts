@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { type LockResult, type Schemas, asShape, unwrap } from "@metrace/api-client";
+import { type LockResult, type Schemas, asShape, unwrap } from "@clew/api-client";
 import { api } from "./api-client-instance";
 import { useWrite } from "./use-write";
 

@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import { logout } from "../auth/keycloak-session";
 import { Button } from "../components/ui-primitives";
 
-/** Signed in, but the account carries none of the metrace roles. */
+/** Signed in, but the account carries none of the clew roles. */
 export function NoAccessPage() {
   return (
     <main className="mx-auto mt-24 max-w-xl space-y-4 rounded-xl bg-white p-8 text-center shadow-sm ring-1 ring-slate-200">

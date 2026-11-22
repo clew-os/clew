@@ -1,11 +1,11 @@
 <!--
-SPDX-FileCopyrightText: The metrace Authors
+SPDX-FileCopyrightText: The Clew Authors
 SPDX-License-Identifier: Apache-2.0
 -->
 
 # Code of Conduct
 
-We want metrace to be a friendly place to contribute.
+We want Clew to be a friendly place to contribute.
 
 ## Expected behavior
 

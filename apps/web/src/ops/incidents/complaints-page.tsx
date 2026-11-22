@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import { useClusterSuggestions, useComplaints } from "../../api/incident-queries";
 import { useDeliveryPoints } from "../../api/read-queries";

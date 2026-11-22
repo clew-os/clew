@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 #
 # Back to a fresh "today" in under a minute: stop worker -> clear Flowable
@@ -20,5 +20,5 @@ for _ in $(seq 1 30); do
 done
 
 # Warm-up: first requests after a reset should not pay JIT/connection costs on stage.
-curl -s -o /dev/null http://localhost:9080/auth/realms/metrace/.well-known/openid-configuration || true
+curl -s -o /dev/null http://localhost:9080/auth/realms/clew/.well-known/openid-configuration || true
 echo "demo-reset done in $(( $(date +%s) - started ))s (scenario: $scenario)"

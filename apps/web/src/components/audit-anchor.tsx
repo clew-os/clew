@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import { useState } from "react";
 import { type AuditAnchorValue, formatAnchor, shortAnchor } from "../lib/audit-anchor";

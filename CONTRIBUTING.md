@@ -1,9 +1,9 @@
 <!--
-SPDX-FileCopyrightText: The metrace Authors
+SPDX-FileCopyrightText: The Clew Authors
 SPDX-License-Identifier: Apache-2.0
 -->
 
-# Contributing to metrace
+# Contributing to Clew
 
 Thanks for helping. A few rules keep the project healthy and fully open source.
 
@@ -23,7 +23,7 @@ Thanks for helping. A few rules keep the project healthy and fully open source.
 - All code is Apache-2.0. Every new file needs an SPDX header:
 
   ```
-  SPDX-FileCopyrightText: The metrace Authors
+  SPDX-FileCopyrightText: The Clew Authors
   SPDX-License-Identifier: Apache-2.0
   ```
 

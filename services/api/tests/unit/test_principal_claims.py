@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 from app.core.principal import parse_organization_claim, principal_from_claims
 
@@ -23,8 +23,8 @@ def test_principal_from_keycloak_claims():
         {
             "sub": "u-1",
             "preferred_username": "truong-a",
-            "azp": "metrace-web",
-            "realm_access": {"roles": ["customer_staff", "default-roles-metrace"]},
+            "azp": "clew-web",
+            "realm_access": {"roles": ["customer_staff", "default-roles-clew"]},
             "organization": {"truong-a": {"id": "8c1d"}},
         }
     )
@@ -32,7 +32,7 @@ def test_principal_from_keycloak_claims():
     assert principal.org_aliases == {"truong-a"}
     assert "customer_staff" in principal.roles
     assert principal.is_internal is False
-    assert principal.client_id == "metrace-web"
+    assert principal.client_id == "clew-web"
 
 
 def test_internal_role_marks_principal_internal():

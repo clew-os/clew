@@ -1,10 +1,13 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 #
-# Single public origin: http://localhost:9080
+# Public plane, http://localhost:9080
 #   /auth/*  -> Keycloak, ALLOWLIST only (everything else under /auth => 404)
 #   /api/*   -> FastAPI, JWT verified here (JWKS) and again in the API
 #   /*       -> static web app
+# Admin plane, http://localhost:9081 (second listener, matched on server_port)
+#   only the Keycloak admin console of realm clew and its admin REST calls;
+#   everything else on 9081 (master realm, other realms, /api, the SPA) => 404.
 upstreams:
   - id: keycloak
     type: roundrobin
@@ -20,14 +23,46 @@ upstreams:
       "web:80": 1
 
 routes:
+  # Every route is bound to one listener with `server_port`, so a request on
+  # 9081 can only reach the admin allowlist below or its 404, and the public
+  # routes (9080) never serve the admin console.
+  - id: admin-console-allowlist
+    priority: 100
+    vars:
+      - ["server_port", "==", "9081"]
+    uris:
+      - /auth/admin/clew/console
+      - /auth/admin/clew/console/*
+      - /auth/admin/serverinfo
+      - /auth/admin/realms/clew
+      - /auth/admin/realms/clew/*
+      - /auth/resources/*
+    upstream_id: keycloak
+    plugins:
+      request-id:
+        include_in_response: true
+
+  - id: admin-plane-deny
+    priority: 90
+    vars:
+      - ["server_port", "==", "9081"]
+    uri: /*
+    plugins:
+      fault-injection:
+        abort:
+          http_status: 404
+          body: "Not Found\n"
+
   - id: auth-allowlist
     priority: 10
+    vars:
+      - ["server_port", "==", "9080"]
     uris:
-      - /auth/realms/metrace/protocol/openid-connect/*
-      - /auth/realms/metrace/.well-known/*
-      - /auth/realms/metrace/login-actions/*
-      - /auth/realms/metrace/device
-      - /auth/realms/metrace/device/*
+      - /auth/realms/clew/protocol/openid-connect/*
+      - /auth/realms/clew/.well-known/*
+      - /auth/realms/clew/login-actions/*
+      - /auth/realms/clew/device
+      - /auth/realms/clew/device/*
       - /auth/resources/*
     upstream_id: keycloak
     plugins:
@@ -38,6 +73,8 @@ routes:
   # through to the SPA catch-all below.
   - id: auth-deny
     priority: 5
+    vars:
+      - ["server_port", "==", "9080"]
     uri: /auth/*
     plugins:
       fault-injection:
@@ -51,14 +88,15 @@ routes:
     uri: /api/v1/assets/*
     vars:
       - ["uri", "~~", "^/api/v1/assets/[^/]+/readings$"]
+      - ["server_port", "==", "9080"]
     upstream_id: api
     plugins:
       request-id:
         include_in_response: true
       openid-connect: &oidc
-        client_id: metrace-api
-        client_secret: $ENV://METRACE_API_CLIENT_SECRET
-        discovery: http://keycloak:8080/auth/realms/metrace/.well-known/openid-configuration
+        client_id: clew-api
+        client_secret: $ENV://CLEW_API_CLIENT_SECRET
+        discovery: http://keycloak:8080/auth/realms/clew/.well-known/openid-configuration
         bearer_only: true
         use_jwks: true
         ssl_verify: false
@@ -72,6 +110,8 @@ routes:
 
   - id: api
     priority: 0
+    vars:
+      - ["server_port", "==", "9080"]
     uri: /api/*
     upstream_id: api
     plugins:
@@ -89,6 +129,8 @@ routes:
   # Static web app (lowest priority catch-all).
   - id: web
     priority: -10
+    vars:
+      - ["server_port", "==", "9080"]
     uri: /*
     upstream_id: web
 #END

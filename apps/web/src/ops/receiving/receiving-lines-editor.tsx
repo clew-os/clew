@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Ingredient } from "@metrace/api-client";
+import type { Ingredient } from "@clew/api-client";
 import { Button, Field, inputClass } from "../../components/ui-primitives";
 import { STORAGE_LABELS_VI } from "../../lib/labels-vi";
 

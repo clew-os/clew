@@ -1,10 +1,12 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Default-deny authorization.
 
-Every business route hangs under one of three parent routers, each gated by a
-role check: internal staff, customer portal, or machine (sensor). A CI test
-walks `app.routes` and fails if any route escapes all three.
+Every route hangs under one of four parent routers, each gated by a role
+check: internal staff, customer portal, machine (sensor), or platform admin
+(sysadmin, /api/v1/admin). The audiences are disjoint: a sysadmin has no
+business-data access and no business role has admin access. A CI test calls
+every route with the wrong roles and fails if any answers anything but 403.
 """
 
 from collections.abc import Callable, Iterable
@@ -14,7 +16,7 @@ from fastapi import APIRouter, Depends
 
 from app.core.authentication import CurrentPrincipal
 from app.core.errors import AppError
-from app.core.principal import CUSTOMER_ROLE, INTERNAL_ROLES, SENSOR_ROLE, Principal
+from app.core.principal import CUSTOMER_ROLE, INTERNAL_ROLES, SENSOR_ROLE, SYSADMIN_ROLE, Principal
 from app.core.reason_codes import ReasonCode
 
 
@@ -55,6 +57,7 @@ def org_scope(principal: Principal) -> OrgScope:
 require_internal = require_any_role(INTERNAL_ROLES)
 require_customer = require_any_role({CUSTOMER_ROLE})
 require_sensor = require_any_role({SENSOR_ROLE})
+require_sysadmin = require_any_role({SYSADMIN_ROLE})
 
 
 def internal_router(*, dependencies=(), **kwargs) -> APIRouter:
@@ -67,3 +70,7 @@ def portal_router(*, dependencies=(), **kwargs) -> APIRouter:
 
 def sensor_router(*, dependencies=(), **kwargs) -> APIRouter:
     return APIRouter(dependencies=[Depends(require_sensor), *dependencies], **kwargs)
+
+
+def admin_router(*, dependencies=(), **kwargs) -> APIRouter:
+    return APIRouter(dependencies=[Depends(require_sysadmin), *dependencies], **kwargs)

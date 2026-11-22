@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Incident report DRAFT: facts from the database -> local LLM (Ollama) -> text.
 
@@ -23,7 +23,7 @@ from app.services.incident_view import affected_shipments
 from app.services.lineage_presenter import present
 from app.services.lineage_query import LineageResult, NodeRef
 
-log = logging.getLogger("metrace.report")
+log = logging.getLogger("clew.report")
 
 SYSTEM_PROMPT = (
     "Bạn soạn NHÁP báo cáo sự cố an toàn thực phẩm bằng tiếng Việt cho bộ phận QA. "

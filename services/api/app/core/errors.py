@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """One error envelope for every failure:
 
@@ -17,7 +17,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.core.reason_codes import ReasonCode
 
-log = logging.getLogger("metrace.errors")
+log = logging.getLogger("clew.errors")
 
 _STATUS_TO_CODE = {
     400: ReasonCode.VALIDATION_ERROR,

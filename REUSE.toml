@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 #
 # Files that cannot carry an SPDX header comment (JSON, lock files, binaries)
@@ -20,7 +20,7 @@ path = [
   ".github/pull_request_template.md",
 ]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "The metrace Authors"
+SPDX-FileCopyrightText = "The Clew Authors"
 SPDX-License-Identifier = "Apache-2.0"
 
 [[annotations]]

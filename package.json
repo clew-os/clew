@@ -1,8 +1,8 @@
 {
-  "name": "metrace",
+  "name": "clew",
   "private": true,
   "license": "Apache-2.0",
-  "description": "metrace monorepo: web app and typed API client",
+  "description": "clew monorepo: web app and typed API client",
   "workspaces": [
     "apps/web",
     "packages/api-client"
@@ -11,8 +11,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "npm run dev --workspace @metrace/web",
-    "build": "npm run build --workspace @metrace/web",
+    "dev": "npm run dev --workspace @clew/web",
+    "build": "npm run build --workspace @clew/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "gen:api": "bash scripts/generate-api-client.sh",

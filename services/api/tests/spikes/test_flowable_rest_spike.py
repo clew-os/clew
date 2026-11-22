@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Spike a (W0 gate): Flowable 8 REST does everything the worker needs.
 
@@ -18,7 +18,7 @@ pytestmark = pytest.mark.integration
 
 BPMN = Path(__file__).parents[1] / "fixtures" / "spike-timer-escalation.bpmn20.xml"
 PROCESS_KEY = "spike-timer-escalation"
-TOPIC = "metrace-spike"
+TOPIC = "clew-spike"
 WORKER = "pytest-worker"
 
 

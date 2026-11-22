@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 #
 # Optional: local LLM for incident report DRAFTS (Ollama, MIT; Qwen3-4B weights, Apache-2.0).

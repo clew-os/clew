@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """P2: finishing a cooking batch needs start/finish times and a core temperature
 at or above `core_temp_min_c`."""

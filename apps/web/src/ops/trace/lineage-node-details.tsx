@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { LineageNode } from "@metrace/api-client";
+import type { LineageNode } from "@clew/api-client";
 import { Button, Card } from "../../components/ui-primitives";
 import { NODE_TYPE_LABELS_VI, mealSlotLabel } from "../../lib/labels-vi";
 import { NodeStateBadge } from "./lineage-table";

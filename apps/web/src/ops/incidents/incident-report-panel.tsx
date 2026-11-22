@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { IncidentDetail } from "@metrace/api-client";
+import type { IncidentDetail } from "@clew/api-client";
 import { useEffect, useState } from "react";
 import { useApproveReport, useRequestReportDraft, useSaveReport } from "../../api/incident-mutations";
 import { canDo } from "../../auth/roles";

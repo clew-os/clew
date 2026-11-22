@@ -1,15 +1,15 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
 import Keycloak from "keycloak-js";
 
 /**
  * Keycloak URL is always the gateway origin (also in dev), so token issuers match the API:
- * iss = http://localhost:9080/auth/realms/metrace. Override with VITE_KEYCLOAK_* for other hosts.
+ * iss = http://localhost:9080/auth/realms/clew. Override with VITE_KEYCLOAK_* for other hosts.
  */
 const keycloak = new Keycloak({
   url: import.meta.env.VITE_KEYCLOAK_URL ?? "http://localhost:9080/auth",
-  realm: import.meta.env.VITE_KEYCLOAK_REALM ?? "metrace",
-  clientId: import.meta.env.VITE_KEYCLOAK_CLIENT_ID ?? "metrace-web",
+  realm: import.meta.env.VITE_KEYCLOAK_REALM ?? "clew",
+  clientId: import.meta.env.VITE_KEYCLOAK_CLIENT_ID ?? "clew-web",
 });
 
 /** Refresh the access token when it expires within this many seconds. */

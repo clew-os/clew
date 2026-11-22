@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Mẫu 2: open a cooking batch, add inputs (lots or intermediate batches), finish under P2."""
 

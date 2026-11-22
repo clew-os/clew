@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Slow lane: draft an incident report with the local LLM (or the template)."""
 
@@ -10,7 +10,7 @@ from app.models.incident import Incident
 from app.services.report_drafting import build_facts, draft_report
 from app.worker.handler_registry import OutboxMessage, handles
 
-log = logging.getLogger("metrace.worker.report")
+log = logging.getLogger("clew.worker.report")
 
 
 @handles("report.draft_requested")

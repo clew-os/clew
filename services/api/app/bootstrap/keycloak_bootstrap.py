@@ -1,11 +1,11 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
-"""One-shot `kc-bootstrap`: make the metrace realm match the repo, idempotently.
+"""One-shot `kc-bootstrap`: make the clew realm match the repo, idempotently.
 
 1. Organizations + memberships from the realm file (import may skip members).
 2. The `organization` claim carries the organization id next to the alias.
 3. Overlays listed in KC_OVERLAYS (comma separated):
-   - test: client `metrace-test` (direct access grants, CI/pytest only)
+   - test: client `clew-test` (direct access grants, CI/pytest only)
    - demo: longer SSO idle so demo personas stay logged in
 
 Talks to the Keycloak admin REST API over the internal docker network only;
@@ -24,8 +24,8 @@ import httpx
 log = logging.getLogger("kc-bootstrap")
 
 BASE_URL = os.environ.get("KC_INTERNAL_URL", "http://keycloak:8080/auth")
-REALM = os.environ.get("KC_REALM", "metrace")
-REALM_FILE = Path(os.environ.get("KC_REALM_FILE", "/srv/keycloak/realm-metrace.json"))
+REALM = os.environ.get("KC_REALM", "clew")
+REALM_FILE = Path(os.environ.get("KC_REALM_FILE", "/srv/keycloak/realm-clew.json"))
 OVERLAY_DIR = Path(os.environ.get("KC_OVERLAY_DIR", "/srv/keycloak/overlays"))
 DEMO_SSO_IDLE_SECONDS = 8 * 3600
 

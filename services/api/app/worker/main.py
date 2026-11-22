@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Worker process: deploy BPMN, then run the outbox lane(s) and the reconciler.
 
@@ -23,7 +23,7 @@ from app.worker.reconciler import run_reconciler_loop
 from app.workflow.bpmn_deployer import deploy_all
 from app.workflow.flowable_client import FlowableClient, FlowableUnavailableError
 
-log = logging.getLogger("metrace.worker")
+log = logging.getLogger("clew.worker")
 BPMN_DIR = Path(os.environ.get("BPMN_DIR", "/srv/workflows/bpmn"))
 
 

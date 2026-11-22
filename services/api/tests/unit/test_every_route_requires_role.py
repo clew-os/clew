@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Default-deny guard, tested by behaviour (independent of FastAPI internals):
 every operation in the OpenAPI schema is called with the wrong roles and must
@@ -16,6 +16,7 @@ from app.main import create_app
 
 OPEN_PATHS = {"/healthz", "/api/v1/whoami"}
 PORTAL_PREFIX = "/api/v1/portal/"
+ADMIN_PREFIX = "/api/v1/admin/"
 SENSOR_PATH = re.compile(r"^/api/v1/assets/[^/]+/readings$")
 
 
@@ -74,11 +75,19 @@ def test_roleless_caller_is_forbidden_everywhere(method, template, url):
 @pytest.mark.parametrize(("method", "template", "url"), OPERATIONS)
 def test_each_audience_is_forbidden_on_the_others_routes(method, template, url):
     staff, customer, sensor = _principal("qa", "director"), _principal("customer_staff"), _principal("sensor")
-    if template.startswith(PORTAL_PREFIX):
-        intruders = [staff, sensor]
+    sysadmin = _principal("sysadmin")
+    if template.startswith(ADMIN_PREFIX):
+        intruders = [staff, customer, sensor]
+    elif template.startswith(PORTAL_PREFIX):
+        intruders = [staff, sensor, sysadmin]
     elif SENSOR_PATH.match(template):
-        intruders = [staff, customer]
+        intruders = [staff, customer, sysadmin]
     else:
-        intruders = [customer, sensor]
+        intruders = [customer, sensor, sysadmin]
     for intruder in intruders:
         assert _call(intruder, method, url) == 403, f"{method} {template} open to {sorted(intruder.roles)}"
+
+
+def test_admin_routes_exist_and_sysadmin_is_not_an_internal_role():
+    assert any(template.startswith(ADMIN_PREFIX) for _, template, _ in OPERATIONS)
+    assert not _principal("sysadmin").is_internal

@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import { type FileOut, type ReceivingIn, plainNumber } from "@metrace/api-client";
+import { type FileOut, type ReceivingIn, plainNumber } from "@clew/api-client";
 import { useState } from "react";
 import { useCreateReceiving } from "../../api/mutations";
 import { useIngredients, useThresholds } from "../../api/read-queries";

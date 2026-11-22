@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """Deploy every BPMN in BPMN_DIR at worker start. Idempotent: unchanged files
 do not create new process-definition versions (content hash in the name)."""
@@ -8,7 +8,7 @@ from pathlib import Path
 
 from app.workflow.flowable_client import FlowableClient
 
-log = logging.getLogger("metrace.worker.bpmn")
+log = logging.getLogger("clew.worker.bpmn")
 
 
 def deploy_all(client: FlowableClient, bpmn_dir: Path) -> list[str]:

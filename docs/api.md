@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: The metrace Authors
+SPDX-FileCopyrightText: The Clew Authors
 SPDX-License-Identifier: Apache-2.0
 -->
 
@@ -12,17 +12,17 @@ Paths below are relative to `/api/v1`.
 
 ## Authentication
 
-Bearer access tokens from Keycloak realm `metrace` (issuer
-`http://localhost:9080/auth/realms/metrace`, audience `metrace-api`). The gateway
+Bearer access tokens from Keycloak realm `clew` (issuer
+`http://localhost:9080/auth/realms/clew`, audience `clew-api`). The gateway
 verifies the token (JWKS) and the API verifies it again (signature, issuer,
 audience, expiry). Request `scope=openid organization` so customer tokens carry their organization.
 
 | Client | Flow | Used by |
 |---|---|---|
-| `metrace-web` | Authorization code + PKCE | Web app |
-| `metrace-cli` | Device authorization grant | `metrace` CLI (staff only) |
+| `clew-web` | Authorization code + PKCE | Web app |
+| `clew-cli` | Device authorization grant | `clew` CLI (staff only) |
 | `sensor-gateway` | Client credentials (claim `asset_codes`) | Sensor simulator |
-| `metrace-test` | Password grant | CI only, exists only with `KC_OVERLAYS=test` |
+| `clew-test` | Password grant | CI only, exists only with `KC_OVERLAYS=test` |
 
 ## Authorization
 
@@ -33,6 +33,7 @@ test that calls every OpenAPI operation with the wrong roles:
 |---|---|
 | `/api/v1/portal/*` | `customer_staff`, scoped to the organizations in the token |
 | `/api/v1/assets/{asset_code}/readings` | `sensor`, only for the assets listed in its `asset_codes` claim |
+| `/api/v1/admin/*` | `sysadmin` only (tier-1 core admin, see [admin-guide.md](admin-guide.md)); business roles get 403, and `sysadmin` gets 403 everywhere else |
 | `/api/v1/whoami` | Any valid token |
 | everything else | internal staff roles; some steps need a specific role (see [poka-yoke-rules.md](poka-yoke-rules.md#who-may-do-what)) |
 
@@ -71,6 +72,7 @@ maps each one to a Vietnamese message.
 | Cold chain | `POST /assets/{asset_code}/readings` (sensor); `GET /coldchain/alerts`; `POST /coldchain/alerts/{alert_id}/acknowledge` (qa); `GET /coldchain/assets/{asset_code}/readings` |
 | Evidence | `GET /audit/head`; `GET /audit/verify?anchor_seq=&anchor_hash=` (qa, director, approver); `GET /forms/2/{batch_id}.pdf` (Mẫu 2); `POST /recall-drills` (qa, director) |
 | Files | `POST /files`, `GET /files/{file_id}` (company); `POST /portal/files`, `GET /portal/files/{file_id}` (customer). JPEG, PNG or PDF, checked by content (magic bytes), max 10 MiB, streamed through the API only |
+| Core admin (`sysadmin`) | `GET /admin/core-status`; `GET /admin/workflow`; `POST /admin/workflow/deadletter-jobs/{job_id}/retry`; `GET /admin/outbox`; `POST /admin/outbox/{event_id}/retry`; `GET /admin/gateway` (route and plugin names only, never plugin settings) |
 
 `POST /recall-drills` is a dry run: it previews the lock inside a savepoint that
 is rolled back, so nothing is locked and no notice is sent. The drill itself is

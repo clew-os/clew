@@ -1,8 +1,8 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """`python -m app.bootstrap.demo_reset --scenario baseline[,outbreak]`
 
-Wipes transactional data (keeps master data and thresholds), removes metrace's
+Wipes transactional data (keeps master data and thresholds), removes clew's
 Flowable process instances and reseeds relative to now(). Runs as the schema
 owner because the runtime role may not truncate the audit chain. The worker
 must be stopped first (scripts/demo-reset.sh does that).

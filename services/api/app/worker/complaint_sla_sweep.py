@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """P6: flag complaints whose answer deadline (`sla_due_at`) passed. No BPMN:
 a 30 s sweep in the worker, every channel, each breach audited once."""
@@ -11,7 +11,7 @@ from app.core.audit_hash_chain import append_audit
 from app.core.database import new_session
 from app.worker.handler_registry import reconciler
 
-log = logging.getLogger("metrace.worker.sla")
+log = logging.getLogger("clew.worker.sla")
 
 SWEEP_SQL = text(
     """

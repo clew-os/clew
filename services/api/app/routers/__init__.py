@@ -1,11 +1,15 @@
-# SPDX-FileCopyrightText: The metrace Authors
+# SPDX-FileCopyrightText: The Clew Authors
 # SPDX-License-Identifier: Apache-2.0
 """All routers, in one list. Business routers must come from
-`internal_router`, `portal_router` or `sensor_router` (default-deny)."""
+`internal_router`, `portal_router`, `sensor_router` or `admin_router` (default-deny)."""
 
 from fastapi import APIRouter
 
 from app.routers import (
+    admin_core_status,
+    admin_gateway,
+    admin_outbox,
+    admin_workflow,
     audit_verify,
     coldchain,
     files,
@@ -39,4 +43,8 @@ GATED_ROUTERS: list[APIRouter] = [
     audit_verify.router,
     incident_reports.router,
     forms_and_drills.router,
+    admin_core_status.router,
+    admin_workflow.router,
+    admin_outbox.router,
+    admin_gateway.router,
 ]

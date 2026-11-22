@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: The metrace Authors
+// SPDX-FileCopyrightText: The Clew Authors
 // SPDX-License-Identifier: Apache-2.0
-import type { Complaint } from "@metrace/api-client";
+import type { Complaint } from "@clew/api-client";
 import { CountdownTimer } from "./countdown-timer";
 import { Badge } from "./ui-primitives";
 
