@@ -67,7 +67,7 @@ def build_facts(session: Session, incident: Incident) -> dict:
             {"type": lock.target_type, "label": labels.get(lock.target_id, str(lock.target_id)), "active": lock.active}
             for lock in locks
         ],
-        "shipments_held": [s["code"] for s in shipments if s["status"] == "held"],
+        "shipments_held": [s["code"] for s in shipments if s["status"] in ("held", "disposed")],
         "shipments_recalled": [s["code"] for s in shipments if s["status"] in ("dispatched", "delivered")],
     }
 

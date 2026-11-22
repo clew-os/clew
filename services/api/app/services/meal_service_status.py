@@ -75,7 +75,7 @@ def meal_status(session: Session, day: date, slot: str) -> list[dict]:
             "detail": {
                 "dispatched": len(gone),
                 "shipments": len(shipments),
-                "held": sum(s.status == "held" for s in shipments),
+                "held": sum(s.status in ("held", "disposed") for s in shipments),  # disposed ones were held
             },
         },
     ]

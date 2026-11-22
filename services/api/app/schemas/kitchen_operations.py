@@ -144,38 +144,6 @@ class PortionCheckIn(BaseModel):
     note: str = ""
 
 
-class ShipmentIn(BaseModel):
-    delivery_point_id: uuid.UUID
-    service_date: date
-    meal_slot: MealSlot
-    vehicle_asset_id: uuid.UUID | None = None
-
-
-class ShipmentItemIn(BaseModel):
-    batch_id: uuid.UUID
-    portions: int = Field(gt=0, le=100000)
-
-
-class ShipmentItemOut(BaseModel):
-    batch_id: uuid.UUID
-    batch_code: str
-    portions: int
-    form3_done: bool
-
-
-class ShipmentOut(BaseModel):
-    id: uuid.UUID
-    code: str
-    delivery_point_id: uuid.UUID
-    delivery_point: str
-    service_date: date
-    meal_slot: str
-    status: str
-    dispatched_at: datetime | None
-    items: list[ShipmentItemOut]
-    blockers: list[Finding] = Field(description="What P3 would block right now (empty = ready to go)")
-
-
 class MealStepOut(BaseModel):
     key: str
     done: bool

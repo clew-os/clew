@@ -71,3 +71,7 @@ def test_retention_counts_from_the_later_of_storage_and_meal_end():
     assert too_early.codes() == [RC.P4_DISCARD_BEFORE_RETENTION]
     assert too_early.violations[0].details["remaining_minutes"] > 0
     assert check_sample_discard(eligible, eligible, TH).ok
+
+
+def test_disposed_shipment_never_dispatches():
+    assert check_dispatch(ship(GOOD, status="disposed"), TH, NOW).codes() == [RC.P3_SHIPMENT_DISPOSED]

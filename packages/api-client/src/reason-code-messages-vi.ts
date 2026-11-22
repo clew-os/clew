@@ -47,6 +47,7 @@ export const REASON_CODE_MESSAGES_VI: Readonly<Record<string, string>> = {
     "Có nguyên liệu hoặc mẻ phía trước đang bị khóa do sự cố an toàn thực phẩm. Không được xuất xe.",
   P3_SHIPMENT_HELD: "Chuyến giao đang bị giữ lại, chưa được xuất xe.",
   P3_LINEAGE_TRUNCATED: "Không truy vết trọn vẹn nguồn gốc của mẻ nên hệ thống chặn để đảm bảo an toàn.",
+  P3_SHIPMENT_DISPOSED: "Chuyến giao đã được ghi nhận hủy, không bao giờ được xuất xe.",
   P3_SHIPMENT_EMPTY: "Chuyến giao chưa có món nào trên xe.",
 
   // P4: lưu mẫu

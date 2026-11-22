@@ -108,7 +108,7 @@ def trace(
 
 @shipments.command("list")
 def list_shipments(
-    status: str | None = typer.Option(None, help="planned | ready | held | dispatched | delivered"),
+    status: str | None = typer.Option(None, help="planned | ready | held | dispatched | delivered | disposed"),
     day: str | None = typer.Option(None, help="service date YYYY-MM-DD (default today)"),
     as_json: bool = typer.Option(False, "--json"),
 ) -> None:

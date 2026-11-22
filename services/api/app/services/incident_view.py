@@ -27,7 +27,7 @@ def affected_shipments(session: Session, incident: Incident, locks: list[Lock]) 
         .join(CustomerOrg, CustomerOrg.id == DeliveryPoint.customer_org_id)
         .where(
             any_of(Shipment.id, down.ids("shipment")),
-            Shipment.status.in_(["planned", "ready", "held"])
+            Shipment.status.in_(["planned", "ready", "held", "disposed"])
             | (Shipment.service_date >= recall_since(incident.opened_at)),
         )
         .order_by(Shipment.service_date, Shipment.code)

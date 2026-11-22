@@ -8,7 +8,7 @@ import { Badge, Card, PageTitle } from "../components/ui-primitives";
 import { PORTAL_SHIPMENT_STATUS_LABELS_VI, mealSlotLabel } from "../lib/labels-vi";
 
 function DeliveryCard({ delivery }: { delivery: PortalDelivery }) {
-  const tone = delivery.status === "held" ? "red" : delivery.status === "delivered" ? "green" : delivery.status === "dispatched" ? "blue" : "yellow";
+  const tone = delivery.status === "held" || delivery.status === "disposed" ? "red" : delivery.status === "delivered" ? "green" : delivery.status === "dispatched" ? "blue" : "yellow";
   const complain = `/portal/complaints?date=${delivery.service_date}&slot=${delivery.meal_slot}&point=${encodeURIComponent(delivery.delivery_point)}`;
   return (
     <Card

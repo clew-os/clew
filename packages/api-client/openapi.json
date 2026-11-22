@@ -1374,6 +1374,65 @@
         }
       }
     },
+    "/api/v1/shipments/{shipment_id}/dispose": {
+      "post": {
+        "tags": [
+          "dispatch"
+        ],
+        "summary": "Dispose Shipment",
+        "description": "QA only; held shipments only. Held food is never released, only disposed of.",
+        "operationId": "dispose_shipment_api_v1_shipments__shipment_id__dispose_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "shipment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Shipment Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShipmentDisposeIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShipmentOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/portion-checks": {
       "post": {
         "tags": [
@@ -5945,6 +6004,22 @@
         ],
         "title": "SampleOut"
       },
+      "ShipmentDisposeIn": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Reason",
+            "description": "Why the held food is destroyed (required)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "ShipmentDisposeIn"
+      },
       "ShipmentIn": {
         "properties": {
           "delivery_point_id": {
@@ -6076,6 +6151,40 @@
             ],
             "title": "Dispatched At"
           },
+          "disposed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disposed At"
+          },
+          "disposed_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disposed By"
+          },
+          "disposal_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disposal Reason"
+          },
           "items": {
             "items": {
               "$ref": "#/components/schemas/ShipmentItemOut"
@@ -6089,7 +6198,7 @@
             },
             "type": "array",
             "title": "Blockers",
-            "description": "What P3 would block right now (empty = ready to go)"
+            "description": "What P3 would block right now (empty = ready to go). Disposed: P3_SHIPMENT_DISPOSED."
           }
         },
         "type": "object",

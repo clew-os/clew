@@ -11,7 +11,23 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Held shipments are never released: QA records their disposal with a reason
+  (`POST /api/v1/shipments/{shipment_id}/dispose`, status `disposed`, audited, migration 0006).
+  Food held by an incident is past the 120-minute hold limit by the time the incident closes.
+  A disposed shipment can never be dispatched (`P3_SHIPMENT_DISPOSED`); the customer's recall
+  notice does not change, so no new acknowledgement is asked.
+  The customer portal shows such a shipment as "Đã hủy - không giao" (will not be delivered).
+
+- Tests for recall notice idempotency and the missing-notice reconciler; `make perf` measures
+  confirm → lock commit and confirm → every recall notice (results in `docs/performance.md`).
+- Integration test: the worker survives Flowable being down for 60 s (marker `outage`).
+
 ### Fixed
+- A process started late (Flowable was down when the incident opened or the fridge alarm fired)
+  now catches up with what already happened: whoever starts it completes the steps the incident
+  or alert has passed, so a contained incident or an acknowledged alert is no longer escalated
+  to the director. The reconciler no longer races the start event into a second process.
 - `scripts/make-release.sh` no longer drops the last line of the oldest CHANGELOG section from the release notes.
 
 ## [0.9.0] - 2026-11-22

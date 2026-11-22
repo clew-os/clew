@@ -35,6 +35,10 @@ describe("role routing", () => {
     expect(canDo(["driver"], "dispatch")).toBe(true);
     expect(canDo(["driver"], "addShipmentItem")).toBe(false);
     expect(canDo(["procurement"], "receive")).toBe(true);
+    expect(canDo(["qa"], "disposeShipment")).toBe(true);
+    for (const role of ["chef", "driver", "approver", "cskh", "procurement", "director"]) {
+      expect(canDo([role], "disposeShipment")).toBe(false);
+    }
   });
 
   it("gates the incident, cold-chain and audit actions", () => {

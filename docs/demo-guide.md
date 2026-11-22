@@ -37,7 +37,7 @@ phone for `/portal`. For a short escalation timer start the stack with
    delivery points that already ate get **recall notices**.
 4. On the phone, the school sees its notice (only its own) and acknowledges it.
 5. Optional: "Soạn bản nháp" — the report draft (AI or template), QA edits, approves.
-6. A dispatch attempt for a held truck is blocked.
+6. A dispatch attempt for a held truck is blocked. Held food is never released: `qa-lan` records its disposal with "Ghi nhận hủy" (reason required); the truck shows "Đã hủy" and has no actions.
 7. Close: `qa-lan` requests, `approver-ha` approves (the same person cannot).
 
 ## 3. Operating system, not an app (≈3 min)

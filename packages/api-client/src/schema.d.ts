@@ -435,6 +435,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/shipments/{shipment_id}/dispose": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Dispose Shipment
+         * @description QA only; held shipments only. Held food is never released, only disposed of.
+         */
+        post: operations["dispose_shipment_api_v1_shipments__shipment_id__dispose_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/portion-checks": {
         parameters: {
             query?: never;
@@ -2161,6 +2181,14 @@ export interface components {
             /** Discarded At */
             discarded_at: string | null;
         };
+        /** ShipmentDisposeIn */
+        ShipmentDisposeIn: {
+            /**
+             * Reason
+             * @description Why the held food is destroyed (required)
+             */
+            reason: string;
+        };
         /** ShipmentIn */
         ShipmentIn: {
             /**
@@ -2228,11 +2256,17 @@ export interface components {
             status: string;
             /** Dispatched At */
             dispatched_at: string | null;
+            /** Disposed At */
+            disposed_at?: string | null;
+            /** Disposed By */
+            disposed_by?: string | null;
+            /** Disposal Reason */
+            disposal_reason?: string | null;
             /** Items */
             items: components["schemas"]["ShipmentItemOut"][];
             /**
              * Blockers
-             * @description What P3 would block right now (empty = ready to go)
+             * @description What P3 would block right now (empty = ready to go). Disposed: P3_SHIPMENT_DISPOSED.
              */
             blockers: components["schemas"]["Finding"][];
         };
@@ -3181,6 +3215,41 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ShipmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    dispose_shipment_api_v1_shipments__shipment_id__dispose_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                shipment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ShipmentDisposeIn"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {

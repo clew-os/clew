@@ -14,7 +14,15 @@ from app.models.enums import MealSlot, ShipmentStatus, one_of
 
 class Shipment(UuidPrimaryKey, Timestamps, Base):
     __tablename__ = "shipment"
-    __table_args__ = (one_of("status", ShipmentStatus), one_of("meal_slot", MealSlot))
+    __table_args__ = (
+        one_of("status", ShipmentStatus),
+        one_of("meal_slot", MealSlot),
+        CheckConstraint(
+            "status <> 'disposed' OR (disposed_at IS NOT NULL AND disposed_by IS NOT NULL"
+            " AND disposal_reason IS NOT NULL)",
+            name="disposed_has_record",
+        ),
+    )
 
     kitchen_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("kitchen.id"), index=True)
     code: Mapped[str] = mapped_column(String(60), unique=True)
@@ -26,6 +34,9 @@ class Shipment(UuidPrimaryKey, Timestamps, Base):
     dispatched_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     dispatched_by: Mapped[str | None] = mapped_column(String(100))
     delivered_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    disposed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    disposed_by: Mapped[str | None] = mapped_column(String(100))
+    disposal_reason: Mapped[str | None] = mapped_column(String(500))
 
 
 class ShipmentItem(UuidPrimaryKey, Base):

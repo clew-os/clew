@@ -19,8 +19,10 @@ from app.models.enums import BatchStatus, ShipmentStatus
 from app.models.kitchen_and_customers import DeliveryPoint, Kitchen
 from app.models.shipment import Shipment, ShipmentItem
 from app.rules.dispatch_rules import check_dispatch
+from app.rules.rule_result import RuleResult
 from app.rules.thresholds import load_thresholds
-from app.schemas.kitchen_operations import PortionCheckIn, ShipmentIn, ShipmentItemIn
+from app.schemas.kitchen_operations import PortionCheckIn
+from app.schemas.shipment_schemas import ShipmentIn, ShipmentItemIn
 from app.services import lock_guard
 from app.services.dispatch_snapshot import build_dispatch_snapshot
 from app.services.poka_yoke_logger import enforce
@@ -83,6 +85,11 @@ def add_item(session: Session, principal: Principal, shipment_id: uuid.UUID, req
 
 
 def record_portion_check(session: Session, principal: Principal, req: PortionCheckIn) -> PortionCheck:
+    shipment = get_or_404(session, Shipment, req.shipment_id, "shipment")
+    if shipment.status == ShipmentStatus.DISPOSED:
+        blocked = RuleResult()
+        blocked.block("P3", ReasonCode.P3_SHIPMENT_DISPOSED, shipment=shipment.code)
+        enforce(session, blocked, principal, "shipment", shipment.id)
     item = session.scalar(
         select(ShipmentItem).where(ShipmentItem.shipment_id == req.shipment_id, ShipmentItem.batch_id == req.batch_id)
     )
@@ -139,7 +146,7 @@ def shipment_view(session: Session, shipment: Shipment) -> dict:
     point = session.get(DeliveryPoint, shipment.delivery_point_id)
     snapshot = build_dispatch_snapshot(session, shipment)
     blockers = []
-    if shipment.status in (*OPEN_STATUSES, ShipmentStatus.HELD):
+    if shipment.status in (*OPEN_STATUSES, ShipmentStatus.HELD, ShipmentStatus.DISPOSED):
         blockers = check_dispatch(snapshot, load_thresholds(session), utcnow()).violations
     items = session.execute(
         select(ShipmentItem, CookingBatch.batch_code).join(CookingBatch).where(ShipmentItem.shipment_id == shipment.id)
@@ -154,6 +161,9 @@ def shipment_view(session: Session, shipment: Shipment) -> dict:
         "meal_slot": shipment.meal_slot,
         "status": shipment.status,
         "dispatched_at": shipment.dispatched_at,
+        "disposed_at": shipment.disposed_at,
+        "disposed_by": shipment.disposed_by,
+        "disposal_reason": shipment.disposal_reason,
         "items": [
             {"batch_id": i.batch_id, "batch_code": code, "portions": i.portions, "form3_done": form3.get(code, False)}
             for i, code in items

@@ -28,7 +28,14 @@ from app.services.lock_service import recall_since
 
 log = logging.getLogger("clew.worker.notices")
 
-ACTION = {"held": "hold", "planned": "hold", "ready": "hold", "dispatched": "recall", "delivered": "recall"}
+ACTION = {
+    "held": "hold",
+    "disposed": "hold",
+    "planned": "hold",
+    "ready": "hold",
+    "dispatched": "recall",
+    "delivered": "recall",
+}
 
 
 def _affected(session: Session, incident: Incident):

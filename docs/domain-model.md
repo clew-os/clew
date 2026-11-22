@@ -48,7 +48,7 @@ erDiagram
 | `batch_input` | Lot **or** another batch (intermediate, e.g. broth) that went into a batch (CHECK: exactly one) |
 | `portion_check` | Mẫu 3: portions, menu match, sensory check before serving |
 | `retained_sample` | Sealed sample; `eligible_discard_at = max(stored_at, meal_end_at) + 24 h` |
-| `shipment`, `shipment_item` | Delivery of batches to a delivery point; status `planned → ready → (held) → dispatched → delivered` |
+| `shipment`, `shipment_item` | Delivery of batches to a delivery point; status `planned → ready → (held) → dispatched → delivered`; a held shipment is never released, QA records its disposal (`held → disposed`, with `disposed_at`, `disposed_by`, `disposal_reason`) |
 | `complaint` | Customer complaint; `sla_due_at` from the customer profile, `sla_breached` set by the P6 sweep |
 | `incident`, `incident_complaint` | Incident and the complaints it groups. `status`: `open` → `contained` → `closed`; `suspects` (JSON); `escalated` (director pulled in) |
 | `incident` report columns | `report_draft` (AI or template, with `report_model` and `report_prompt_sha256`), `report_final` (QA's text), `report_approved_by`, `report_approved_at` |

@@ -16,6 +16,7 @@ export type ActionName =
   | "planShipment"
   | "addShipmentItem"
   | "dispatch"
+  | "disposeShipment"
   | "complaintIntake"
   | "openIncident"
   | "confirmSuspects"
@@ -35,6 +36,7 @@ const ACTION_ROLES: Readonly<Record<ActionName, readonly string[]>> = {
   planShipment: ["chef", "driver"],
   addShipmentItem: ["chef"],
   dispatch: ["chef", "driver"],
+  disposeShipment: ["qa"],
   complaintIntake: ["cskh", "qa"],
   openIncident: ["qa"],
   confirmSuspects: ["qa"],

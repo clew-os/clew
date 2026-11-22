@@ -46,6 +46,16 @@ export const useAddShipmentItem = () =>
 export const useRecordPortionCheck = () =>
   useWrite((body: Schemas["PortionCheckIn"]) => unwrap(api.POST("/api/v1/portion-checks", { body })));
 
+export const useDisposeShipment = () =>
+  useWrite((v: { shipmentId: string; reason: string }) =>
+    unwrap(
+      api.POST("/api/v1/shipments/{shipment_id}/dispose", {
+        params: { path: { shipment_id: v.shipmentId } },
+        body: { reason: v.reason },
+      }),
+    ),
+  );
+
 export const useDispatchShipment = () =>
   useWrite((shipmentId: string) =>
     unwrap(api.POST("/api/v1/shipments/{shipment_id}/dispatch", { params: { path: { shipment_id: shipmentId } } })),

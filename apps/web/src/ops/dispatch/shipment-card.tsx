@@ -9,10 +9,12 @@ import { Badge, Button, Card } from "../../components/ui-primitives";
 import { ViolationBanner } from "../../components/violation-banner";
 import { useBusinessClock } from "../../layout/business-clock";
 import { SHIPMENT_STATUS_LABELS_VI } from "../../lib/labels-vi";
+import { DisposeShipmentPanel } from "./dispose-shipment-panel";
 import { AddShipmentItemForm } from "./add-shipment-item-form";
 import { PortionCheckForm } from "./portion-check-form";
 
 const OPEN = ["planned", "ready", "held"];
+const disposed = (s: Shipment) => s.status === "disposed";
 
 export function ShipmentCard(props: { shipment: Shipment; batches: Batch[]; dishes: Dish[] }) {
   const { shipment } = props;
@@ -28,7 +30,7 @@ export function ShipmentCard(props: { shipment: Shipment; batches: Batch[]; dish
   const resetAttempt = dispatch.reset;
   useEffect(() => resetAttempt(), [blockerKey, resetAttempt]);
 
-  const tone = shipment.status === "held" ? "red" : shipment.status === "dispatched" || shipment.status === "delivered" ? "green" : "yellow";
+  const tone = disposed(shipment) ? "slate" : shipment.status === "held" ? "red" : shipment.status === "dispatched" || shipment.status === "delivered" ? "green" : "yellow";
 
   return (
     <Card
@@ -98,6 +100,13 @@ export function ShipmentCard(props: { shipment: Shipment; batches: Batch[]; dish
             </div>
           )}
         </div>
+      )}
+      {shipment.status === "held" && canDo(roles, "disposeShipment") && <DisposeShipmentPanel shipment={shipment} />}
+      {disposed(shipment) && (
+        <p className="mt-3 text-lg text-slate-700">
+          Đã ghi nhận hủy{shipment.disposed_at ? ` lúc ${clock.dateTime(shipment.disposed_at)}` : ""}
+          {shipment.disposed_by ? ` bởi ${shipment.disposed_by}` : ""}. Lý do: {shipment.disposal_reason}
+        </p>
       )}
       {shipment.dispatched_at && <p className="mt-3 text-lg text-slate-700">Đã xuất xe lúc {clock.dateTime(shipment.dispatched_at)}.</p>}
     </Card>

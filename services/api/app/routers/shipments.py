@@ -13,20 +13,16 @@ from app.core.business_time import service_date, utcnow
 from app.core.database import DbSession, get_or_404
 from app.models.enums import MealSlot
 from app.models.shipment import Shipment
-from app.schemas.kitchen_operations import (
-    MealServiceStatusOut,
-    PortionCheckIn,
-    ShipmentIn,
-    ShipmentItemIn,
-    ShipmentOut,
-)
-from app.services import dispatch_service
+from app.schemas.kitchen_operations import MealServiceStatusOut, PortionCheckIn
+from app.schemas.shipment_schemas import ShipmentDisposeIn, ShipmentIn, ShipmentItemIn, ShipmentOut
+from app.services import dispatch_service, shipment_disposal_service
 from app.services.meal_service_status import meal_status
 
 router = internal_router(prefix="/api/v1", tags=["dispatch"])
 
 PLANNER = [Depends(require_any_role({"chef", "driver"}))]
 CHEF = [Depends(require_any_role({"chef"}))]
+QA = [Depends(require_any_role({"qa"}))]
 CHECKER = [Depends(require_any_role({"qa", "chef"}))]
 
 
@@ -54,6 +50,13 @@ def add_item(shipment_id: uuid.UUID, req: ShipmentItemIn, session: DbSession, pr
 @router.post("/shipments/{shipment_id}/dispatch", response_model=ShipmentOut, dependencies=PLANNER)
 def dispatch(shipment_id: uuid.UUID, session: DbSession, principal: CurrentPrincipal):
     dispatch_service.dispatch(session, principal, shipment_id)
+    return _one(session, shipment_id)
+
+
+@router.post("/shipments/{shipment_id}/dispose", response_model=ShipmentOut, dependencies=QA)
+def dispose_shipment(shipment_id: uuid.UUID, req: ShipmentDisposeIn, session: DbSession, principal: CurrentPrincipal):
+    """QA only; held shipments only. Held food is never released, only disposed of."""
+    shipment_disposal_service.dispose(session, principal, shipment_id, req.reason)
     return _one(session, shipment_id)
 
 

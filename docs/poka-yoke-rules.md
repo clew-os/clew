@@ -81,10 +81,29 @@ same service day, otherwise `409`: cooked food is not carried over to another da
 | `P3_SHIPMENT_HELD` / `P3_UPSTREAM_LOCKED` | Shipment held, or anything upstream locked by an incident |
 | `P3_LINEAGE_TRUNCATED` | Lineage could not be walked completely (fail closed) |
 | `P3_SHIPMENT_EMPTY` | Nothing on the truck |
+| `P3_SHIPMENT_DISPOSED` | The shipment was disposed of; it can never be dispatched |
 
 Closing an incident releases its locks but **does not** release held shipments:
-the food on them was part of a recall. The safe default is to plan a new
-shipment with freshly cooked food.
+the food on them was part of a recall. **Held food is never released.**
+P3 limits hot-holding of cooked food to `dispatch_hold_max_min` (120 minutes),
+so by the time an incident closes the held food is past its limit and must be
+destroyed. QA records that with
+`POST /api/v1/shipments/{shipment_id}/dispose` and a required reason (max 500
+characters): status `held → disposed`, audited as `shipment.disposed`, allowed
+whether or not the incident is already closed. Only a `held` shipment can be
+disposed (otherwise `409 CONFLICT`); a disposed shipment never goes back to
+`held` or `ready` and never dispatches (`P3_SHIPMENT_DISPOSED`). Disposal does
+not change what the customer must do: the recall notice keeps the `hold`
+action and needs no new acknowledgement. Plan a new shipment with freshly
+cooked food instead. A disposed shipment lists `P3_SHIPMENT_DISPOSED` in its
+`blockers`, takes no Mẫu 3 (`POST /portion-checks` is refused with the same
+code), and the customer portal shows "Đã hủy - không giao" (the meal will not
+arrive).
+
+Disposal stays allowed while the incident is still open. The legal evidence is
+the retained sample (P4, kept 24 h), not the held food: if the health authority
+asks for more, QA takes extra samples from the held food **before** recording
+its disposal.
 
 `GET /api/v1/shipments` shows each open shipment's current blockers, so the
 dispatch screen can explain what is missing before anyone presses the button.
@@ -122,6 +141,7 @@ and 12 for the factory in the demo) or from `COMPLAINT_SLA_OVERRIDE_MINUTES`.
 | Portion check (Mẫu 3) | `qa`, `chef` |
 | Create shipment, dispatch | `chef`, `driver` |
 | Add batch to shipment | `chef` |
+| Record disposal of a held shipment | `qa` |
 | Complaint intake (internal channel) | `cskh`, `qa` |
 | Open incident, confirm suspects (lock), request close | `qa` |
 | Incident report: draft, edit, approve | `qa` |

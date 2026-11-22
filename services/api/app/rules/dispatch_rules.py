@@ -35,6 +35,8 @@ def check_dispatch(ship: DispatchSnapshot, th: Thresholds, now: datetime) -> Rul
     r = RuleResult()
     if ship.status == "held":
         r.block("P3", RC.P3_SHIPMENT_HELD, shipment=ship.shipment_code)
+    if ship.status == "disposed":
+        r.block("P3", RC.P3_SHIPMENT_DISPOSED, shipment=ship.shipment_code)
     if not ship.items:
         r.block("P3", RC.P3_SHIPMENT_EMPTY, shipment=ship.shipment_code)
     hold_max = th.get("dispatch_hold_max_min")

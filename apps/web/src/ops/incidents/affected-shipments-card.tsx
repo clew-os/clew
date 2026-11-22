@@ -8,13 +8,14 @@ import { SHIPMENT_STATUS_LABELS_VI, mealSlotLabel } from "../../lib/labels-vi";
 /** held = stopped before leaving (amber); dispatched/delivered = already out, must be recalled (red). */
 function ShipmentState({ status }: { status: string }) {
   if (status === "held") return <Badge tone="yellow">Đã giữ lại</Badge>;
+  if (status === "disposed") return <Badge tone="slate">Đã giữ lại - đã hủy</Badge>;
   if (status === "dispatched" || status === "delivered") return <Badge tone="red">Cần thu hồi - {SHIPMENT_STATUS_LABELS_VI[status]}</Badge>;
   return <Badge tone="slate">{SHIPMENT_STATUS_LABELS_VI[status] ?? status}</Badge>;
 }
 
 export function AffectedShipmentsCard({ incident }: { incident: IncidentDetail }) {
   const clock = useBusinessClock();
-  const held = incident.shipments.filter((s) => s.status === "held").length;
+  const held = incident.shipments.filter((s) => s.status === "held" || s.status === "disposed").length;
   const recall = incident.shipments.filter((s) => s.status === "dispatched" || s.status === "delivered").length;
 
   return (

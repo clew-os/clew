@@ -66,6 +66,7 @@ class ShipmentStatus(StrEnum):
     HELD = "held"
     DISPATCHED = "dispatched"
     DELIVERED = "delivered"
+    DISPOSED = "disposed"  # held food destroyed, recorded by QA; terminal
 
 
 class SampleStatus(StrEnum):

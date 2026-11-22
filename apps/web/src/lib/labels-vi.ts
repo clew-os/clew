@@ -28,6 +28,7 @@ export const SHIPMENT_STATUS_LABELS_VI: Readonly<Record<string, string>> = {
   held: "Bị giữ",
   dispatched: "Đã xuất xe",
   delivered: "Đã giao",
+  disposed: "Đã hủy",
 };
 
 /** The six steps of the meal-service checklist, in order. */
@@ -97,4 +98,5 @@ export const PORTAL_SHIPMENT_STATUS_LABELS_VI: Readonly<Record<string, string>> 
   held: "Tạm giữ để kiểm tra an toàn",
   dispatched: "Đã xuất xe",
   delivered: "Đã giao",
+  disposed: "Đã hủy - không giao",
 };

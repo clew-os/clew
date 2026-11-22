@@ -84,6 +84,8 @@ def assert_dispatchable(
     result = RuleResult()
     if shipment.status == "held":
         result.block("P3", RC.P3_SHIPMENT_HELD, shipment=shipment.code)
+    if shipment.status == "disposed":
+        result.block("P3", RC.P3_SHIPMENT_DISPOSED, shipment=shipment.code)
     batch_ids = set(session.scalars(select(ShipmentItem.batch_id).where(ShipmentItem.shipment_id == shipment.id)))
     if extra_batch:
         batch_ids.add(extra_batch)
