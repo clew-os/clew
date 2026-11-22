@@ -39,6 +39,9 @@ test: ## unit tests (no stack needed)
 test-integration: dev-ports ## integration tests (starts the dev-ports stack; writes test rows to the dev DB)
 	cd services/api && set -a && source ../../.env && set +a && uv run pytest -m integration
 
+perf: ## recall latency, 20 runs, against the running dev-ports stack (docs/performance.md)
+	cd services/api && set -a && source ../../.env && set +a && uv run pytest -m perf -s
+
 demo-reset: ## fresh demo data for "today" (keeps master data), restarts the worker
 	scripts/demo-reset.sh baseline
 
@@ -51,4 +54,4 @@ licenses: ## regenerate docs/license-declaration.{md,csv}; fails outside the all
 openapi: ## export the API schema for the web client (packages/api-client/openapi.json)
 	cd services/api && uv run python -c "import json; from app.main import create_app; print(json.dumps(create_app().openapi(), indent=2, ensure_ascii=False))" > ../../packages/api-client/openapi.json
 
-.PHONY: help init up dev-ports down reset admin-tools-open admin-tools-close lint test test-integration openapi demo-reset demo-preflight licenses
+.PHONY: help init up dev-ports down reset admin-tools-open admin-tools-close lint test test-integration perf openapi demo-reset demo-preflight licenses

@@ -102,6 +102,7 @@ clew drill run lot LOT-20261008-XUONG-LON      # recall drill, dry run
 | [api.md](docs/api.md) | Authentication, authorization, errors, endpoints |
 | [deployment.md](docs/deployment.md) | Configuration, operations, clean-machine check |
 | [admin-guide.md](docs/admin-guide.md) | Administering the headless core (tier 1) |
+| [performance.md](docs/performance.md) | Measured recall latency and behaviour during a Flowable outage |
 | [demo-guide.md](docs/demo-guide.md) | A 15-minute walkthrough |
 | [license-policy.md](docs/license-policy.md), [license-declaration.md](docs/license-declaration.md) | Licensing |
 
