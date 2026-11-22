@@ -36,4 +36,6 @@ testpaths = ["tests"]
 pythonpath = ["."]
 markers = [
   "integration: needs the compose stack (postgres, keycloak, apisix, flowable)",
+  "outage: stops Flowable for 60 s and restarts it (also marked integration, ~2 min)",
+  "perf: latency measurement over 20 runs; also marked integration but only runs with -m perf",
 ]

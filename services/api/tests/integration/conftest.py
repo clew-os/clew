@@ -52,3 +52,13 @@ def session_factory(app_engine):
 def owner_execute(owner_engine, sql: str, **params) -> None:
     with Session(owner_engine) as session, session.begin():
         session.execute(text(sql), params)
+
+
+def pytest_collection_modifyitems(config, items):
+    """Perf runs take minutes and need a quiet stack: they run only when asked for with `-m perf`."""
+    if "perf" in (config.getoption("markexpr") or ""):
+        return
+    skip = pytest.mark.skip(reason="perf test: run it with `-m perf` or `make perf`")
+    for item in items:
+        if item.get_closest_marker("perf"):
+            item.add_marker(skip)
